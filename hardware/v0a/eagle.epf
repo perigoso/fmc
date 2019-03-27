@@ -140,7 +140,6 @@ UsedLibrary="/home/rafael/EAGLE/RSLib/libraries/Sensors/Sensors > Humidity Senso
 UsedLibrary="/home/rafael/EAGLE/RSLib/libraries/Sensors/Sensors > Motion & Position Sensors > Accelerometers.lbr"
 UsedLibrary="/home/rafael/EAGLE/RSLib/libraries/Sensors/Sensors > Motion & Position Sensors > Gyroscopes.lbr"
 UsedLibrary="/home/rafael/EAGLE/RSLib/libraries/Sensors/Sensors > Motion & Position Sensors > IMUs - Inertial Measurement Units.lbr"
-UsedLibrary="/home/rafael/EAGLE/RSLib/libraries/Sensors/Sensors > Optical Sensors > Ambient Light Sensors.lbr"
 UsedLibrary="/home/rafael/EAGLE/RSLib/libraries/Sensors/Sensors > Optical Sensors > Image Sensors.lbr"
 UsedLibrary="/home/rafael/EAGLE/RSLib/libraries/Sensors/Sensors > Optical Sensors > Infrared Detectors.lbr"
 UsedLibrary="/home/rafael/EAGLE/RSLib/libraries/Sensors/Sensors > Pressure Sensors.lbr"
@@ -151,6 +150,7 @@ UsedLibrary="/home/rafael/EAGLE/RSLib/libraries/Utility/Utility > Board.lbr"
 UsedLibrary="/home/rafael/EAGLE/RSLib/libraries/Utility/Utility > Power Symbols.lbr"
 UsedLibrary="/home/rafael/EAGLE/RSLib/libraries/Utility/Utility > Schematic.lbr"
 UsedLibrary="/home/rafael/EAGLE/RSLib/libraries/Utility/Utility > Silkscreen.lbr"
+UsedLibrary="/home/rafael/EAGLE/RSLib/libraries/Sensors/Sensors > Optical Sensors > Light Sensors.lbr"
 
 [Win_1]
 Type="Control Panel"
