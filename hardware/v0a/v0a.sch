@@ -389,7 +389,6 @@
 <rectangle x1="0.4318" y1="-0.4" x2="0.8382" y2="0.4" layer="51"/>
 <rectangle x1="-0.8382" y1="-0.4" x2="-0.4318" y2="0.4" layer="51"/>
 <text x="-1.778" y="0.9525" size="0.8" layer="25" font="vector" ratio="15">&gt;NAME</text>
-<text x="-1.778" y="-1.7463" size="0.8" layer="27" font="vector" ratio="15">&gt;VALUE</text>
 </package>
 <package name="_0402">
 <description>&lt;b&gt; 0402&lt;/b&gt;</description>
@@ -1118,7 +1117,6 @@ classified as MSL (Moisture Sensitivity Level) 1 under J STD
 <rectangle x1="0.4318" y1="-0.4" x2="0.8382" y2="0.4" layer="51"/>
 <rectangle x1="-0.8382" y1="-0.4" x2="-0.4318" y2="0.4" layer="51"/>
 <text x="-1.27" y="0.9525" size="0.8128" layer="25" ratio="18">&gt;NAME</text>
-<text x="-1.27" y="-1.4923" size="0.4064" layer="27" ratio="10">&gt;VALUE</text>
 </package>
 <package name="2512_WAVE">
 <smd name="P$1" x="-3.2" y="0" dx="3.2" dy="1.2" layer="1" rot="R90"/>
@@ -2570,56 +2568,6 @@ a fully functional servo controller for a wide range of servo applications.</des
 </deviceset>
 </devicesets>
 </library>
-<library name="Passive Components &gt; Resistors &gt; Current Sense">
-<packages>
-<package name="2512">
-<description>&lt;b&gt;RESISTOR 2512 (Metric 6432)&lt;/b&gt;</description>
-<wire x1="-2.362" y1="1.473" x2="2.387" y2="1.473" width="0.2032" layer="51"/>
-<wire x1="-2.362" y1="-1.473" x2="2.387" y2="-1.473" width="0.2032" layer="51"/>
-<rectangle x1="-3.2004" y1="-1.5494" x2="-2.3505" y2="1.5507" layer="51"/>
-<rectangle x1="2.3622" y1="-1.5494" x2="3.2121" y2="1.5507" layer="51"/>
-<rectangle x1="-0.5001" y1="-1" x2="0.5001" y2="1" layer="35"/>
-<smd name="1" x="-2.8" y="0" dx="1.8" dy="3.4" layer="1"/>
-<smd name="2" x="2.8" y="0" dx="1.8" dy="3.4" layer="1"/>
-<text x="-3.81" y="2.413" size="0.8" layer="25" font="vector" ratio="15">&gt;NAME</text>
-<wire x1="-4.1275" y1="2.005" x2="4.1275" y2="2.005" width="0.2032" layer="21"/>
-<wire x1="4.1275" y1="2.005" x2="4.1275" y2="-2.005" width="0.2032" layer="21"/>
-<wire x1="4.1275" y1="-2.005" x2="-4.1275" y2="-2.005" width="0.2032" layer="21"/>
-<wire x1="-4.1275" y1="-2.005" x2="-4.1275" y2="2.005" width="0.2032" layer="21"/>
-</package>
-</packages>
-<symbols>
-<symbol name="RESISTOR">
-<pin name="P$1" x="-5.08" y="0" visible="off" length="short"/>
-<pin name="P$2" x="5.08" y="0" visible="off" length="short" rot="R180"/>
-<wire x1="-2.54" y1="-1.016" x2="-2.54" y2="1.016" width="0.254" layer="94"/>
-<wire x1="-2.54" y1="1.016" x2="2.54" y2="1.016" width="0.254" layer="94"/>
-<wire x1="2.54" y1="1.016" x2="2.54" y2="-1.016" width="0.254" layer="94"/>
-<wire x1="2.54" y1="-1.016" x2="-2.54" y2="-1.016" width="0.254" layer="94"/>
-<text x="-3.302" y="1.524" size="1.27" layer="95">&gt;NAME</text>
-<text x="-3.556" y="-2.54" size="1.27" layer="96">&gt;VALUE</text>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="WSLF25121L000FEA" prefix="R" uservalue="yes">
-<description>5W 1mOhm</description>
-<gates>
-<gate name="G$1" symbol="RESISTOR" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="2512">
-<connects>
-<connect gate="G$1" pin="P$1" pad="1"/>
-<connect gate="G$1" pin="P$2" pad="2"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
 <library name="Semiconductors &gt; Integrated Circuits - ICs &gt; Amplifier ICs &gt; Current Sense Amplifiers">
 <packages>
 <package name="SOIC8">
@@ -2955,6 +2903,69 @@ a fully functional servo controller for a wide range of servo applications.</des
 </deviceset>
 </devicesets>
 </library>
+<library name="Passive Components &gt; Resistors &gt; Current Sense">
+<packages>
+<package name="3920">
+<smd name="1" x="-4.15" y="1.778" dx="2.592" dy="2.7" layer="1" rot="R90"/>
+<smd name="4" x="4.15" y="1.778" dx="2.592" dy="2.7" layer="1" rot="R90"/>
+<smd name="2" x="-4.15" y="-1.778" dx="2.592" dy="2.7" layer="1" rot="R90"/>
+<smd name="3" x="4.15" y="-1.778" dx="2.592" dy="2.7" layer="1" rot="R90"/>
+<smd name="SENSE+" x="-4.15" y="0" dx="2.7" dy="0.508" layer="1"/>
+<smd name="SENSE-" x="4.15" y="0" dx="2.7" dy="0.508" layer="1"/>
+<wire x1="-5.842" y1="3.429" x2="5.842" y2="3.429" width="0.127" layer="21"/>
+<wire x1="5.842" y1="3.429" x2="5.842" y2="-3.429" width="0.127" layer="21"/>
+<wire x1="5.842" y1="-3.429" x2="-5.842" y2="-3.429" width="0.127" layer="21"/>
+<wire x1="-5.842" y1="-3.429" x2="-5.842" y2="3.429" width="0.127" layer="21"/>
+<wire x1="-5" y1="2.6" x2="-5" y2="-2.6" width="0.127" layer="51"/>
+<wire x1="-5" y1="-2.6" x2="-2.5" y2="-2.6" width="0.127" layer="51"/>
+<wire x1="-2.5" y1="-2.6" x2="-1.27" y2="-2.6" width="0.127" layer="51"/>
+<wire x1="1.27" y1="-2.6" x2="2.5" y2="-2.6" width="0.127" layer="51"/>
+<wire x1="2.5" y1="-2.6" x2="5" y2="-2.6" width="0.127" layer="51"/>
+<wire x1="5" y1="-2.6" x2="5" y2="2.6" width="0.127" layer="51"/>
+<wire x1="5" y1="2.6" x2="2.5" y2="2.6" width="0.127" layer="51"/>
+<wire x1="2.5" y1="2.6" x2="-2.5" y2="2.6" width="0.127" layer="51"/>
+<wire x1="-2.5" y1="2.6" x2="-5" y2="2.6" width="0.127" layer="51"/>
+<wire x1="-2.5" y1="2.6" x2="-2.5" y2="-2.6" width="0.127" layer="51"/>
+<wire x1="2.5" y1="2.6" x2="2.5" y2="-2.6" width="0.127" layer="51"/>
+<wire x1="-1.27" y1="-2.6" x2="1.27" y2="-2.6" width="0.127" layer="51" curve="-90"/>
+<text x="-5.08" y="-3.81" size="0.8" layer="21" font="vector" ratio="15" align="top-left">&gt;NAME</text>
+</package>
+</packages>
+<symbols>
+<symbol name="RESISTOR-SENSE">
+<pin name="P$1" x="-5.08" y="0" visible="off" length="short"/>
+<pin name="P$2" x="5.08" y="0" visible="off" length="short" rot="R180"/>
+<wire x1="-2.54" y1="-1.016" x2="-2.54" y2="1.016" width="0.254" layer="94"/>
+<wire x1="-2.54" y1="1.016" x2="2.54" y2="1.016" width="0.254" layer="94"/>
+<wire x1="2.54" y1="1.016" x2="2.54" y2="-1.016" width="0.254" layer="94"/>
+<wire x1="2.54" y1="-1.016" x2="-2.54" y2="-1.016" width="0.254" layer="94"/>
+<text x="-2.54" y="5.08" size="1.27" layer="95">&gt;NAME</text>
+<text x="-2.54" y="2.54" size="1.27" layer="96">&gt;VALUE</text>
+<pin name="SENSE+" x="-2.54" y="-2.54" visible="off" length="short" rot="R90"/>
+<pin name="SENSE-" x="2.54" y="-2.54" visible="off" length="short" rot="R90"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="LRMAP3920" prefix="R" uservalue="yes">
+<gates>
+<gate name="G$1" symbol="RESISTOR-SENSE" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="3920">
+<connects>
+<connect gate="G$1" pin="P$1" pad="1 2"/>
+<connect gate="G$1" pin="P$2" pad="3 4"/>
+<connect gate="G$1" pin="SENSE+" pad="SENSE+"/>
+<connect gate="G$1" pin="SENSE-" pad="SENSE-"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 <attribute name="CREVISION" value="v0a"/>
@@ -3149,14 +3160,12 @@ a fully functional servo controller for a wide range of servo applications.</des
 <part name="R7" library="Passive Components &gt; Resistors &gt; Chip Resistors" deviceset="RESISTOR" device="0603" value="2.2"/>
 <part name="R8" library="Passive Components &gt; Resistors &gt; Chip Resistors" deviceset="RESISTOR" device="0603" value="2.2"/>
 <part name="J4" library="Connectors &gt; Other" deviceset="2EDG-2P" device=""/>
-<part name="R9" library="Passive Components &gt; Resistors &gt; Current Sense" deviceset="WSLF25121L000FEA" device="" value="1m"/>
 <part name="U10" library="Semiconductors &gt; Integrated Circuits - ICs &gt; Amplifier ICs &gt; Current Sense Amplifiers" deviceset="AD8418" device=""/>
 <part name="GND36" library="Utility &gt; Power Symbols" deviceset="GND" device=""/>
 <part name="SUPPLY32" library="Utility &gt; Power Symbols" deviceset="5V" device=""/>
 <part name="SUPPLY33" library="Utility &gt; Power Symbols" deviceset="5V" device=""/>
 <part name="GND38" library="Utility &gt; Power Symbols" deviceset="GND" device=""/>
 <part name="C67" library="Passive Components &gt; Capacitors &gt; Multilayer Ceramic Capacitors MLCC" deviceset="MLCC" device="0603"/>
-<part name="R10" library="Passive Components &gt; Resistors &gt; Current Sense" deviceset="WSLF25121L000FEA" device="" value="1m"/>
 <part name="U11" library="Semiconductors &gt; Integrated Circuits - ICs &gt; Amplifier ICs &gt; Current Sense Amplifiers" deviceset="AD8418" device=""/>
 <part name="GND40" library="Utility &gt; Power Symbols" deviceset="GND" device=""/>
 <part name="SUPPLY34" library="Utility &gt; Power Symbols" deviceset="5V" device=""/>
@@ -3243,6 +3252,8 @@ a fully functional servo controller for a wide range of servo applications.</des
 <part name="GND72" library="Utility &gt; Power Symbols" deviceset="GND" device=""/>
 <part name="GND73" library="Utility &gt; Power Symbols" deviceset="GND" device=""/>
 <part name="GND74" library="Utility &gt; Power Symbols" deviceset="GND" device=""/>
+<part name="R9" library="Passive Components &gt; Resistors &gt; Current Sense" deviceset="LRMAP3920" device="" value="700u"/>
+<part name="R10" library="Passive Components &gt; Resistors &gt; Current Sense" deviceset="LRMAP3920" device="" value="700u"/>
 </parts>
 <sheets>
 <sheet>
@@ -4973,10 +4984,6 @@ DS pag. 5</text>
 <instance part="J4" gate="-2" x="231.14" y="76.2" smashed="yes">
 <attribute name="NAME" x="233.68" y="75.438" size="1.524" layer="95"/>
 </instance>
-<instance part="R9" gate="G$1" x="256.54" y="228.6" smashed="yes">
-<attribute name="NAME" x="253.238" y="230.124" size="1.27" layer="95"/>
-<attribute name="VALUE" x="252.984" y="226.06" size="1.27" layer="96"/>
-</instance>
 <instance part="U10" gate="_" x="256.54" y="208.28" smashed="yes" rot="MR270">
 <attribute name="NAME" x="254" y="213.36" size="1.27" layer="95" ratio="15" rot="MR270"/>
 </instance>
@@ -5007,10 +5014,6 @@ DS pag. 5</text>
 <instance part="C67" gate="G$1" x="289.56" y="208.28" smashed="yes">
 <attribute name="NAME" x="288.036" y="205.74" size="1.27" layer="95" rot="R90"/>
 <attribute name="VALUE" x="292.1" y="205.74" size="1.27" layer="96" rot="R90"/>
-</instance>
-<instance part="R10" gate="G$1" x="256.54" y="177.8" smashed="yes">
-<attribute name="NAME" x="253.238" y="179.324" size="1.27" layer="95"/>
-<attribute name="VALUE" x="252.984" y="175.26" size="1.27" layer="96"/>
 </instance>
 <instance part="U11" gate="_" x="256.54" y="157.48" smashed="yes" rot="MR270">
 <attribute name="NAME" x="254" y="162.56" size="1.27" layer="95" ratio="15" rot="MR270"/>
@@ -5121,6 +5124,14 @@ DS pag. 5</text>
 <attribute name="NAME" x="144.018" y="82.804" size="1.27" layer="95"/>
 <attribute name="VALUE" x="143.764" y="78.74" size="1.27" layer="96"/>
 </instance>
+<instance part="R9" gate="G$1" x="256.54" y="228.6" smashed="yes">
+<attribute name="NAME" x="254" y="233.68" size="1.27" layer="95"/>
+<attribute name="VALUE" x="254" y="231.14" size="1.27" layer="96"/>
+</instance>
+<instance part="R10" gate="G$1" x="256.54" y="177.8" smashed="yes">
+<attribute name="NAME" x="254" y="182.88" size="1.27" layer="95"/>
+<attribute name="VALUE" x="254" y="180.34" size="1.27" layer="96"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -5159,14 +5170,8 @@ DS pag. 5</text>
 <junction x="162.56" y="210.82"/>
 <pinref part="Q1" gate="G$1" pin="S1"/>
 <pinref part="Q2" gate="G$1" pin="D1"/>
+<wire x1="218.44" y1="228.6" x2="251.46" y2="228.6" width="0.1524" layer="91"/>
 <pinref part="R9" gate="G$1" pin="P$1"/>
-<wire x1="251.46" y1="228.6" x2="248.92" y2="228.6" width="0.1524" layer="91"/>
-<wire x1="248.92" y1="228.6" x2="248.92" y2="223.52" width="0.1524" layer="91"/>
-<wire x1="248.92" y1="223.52" x2="254" y2="223.52" width="0.1524" layer="91"/>
-<pinref part="U10" gate="_" pin="IN+@8"/>
-<wire x1="254" y1="223.52" x2="254" y2="220.98" width="0.1524" layer="91"/>
-<wire x1="218.44" y1="228.6" x2="248.92" y2="228.6" width="0.1524" layer="91"/>
-<junction x="248.92" y="228.6"/>
 </segment>
 </net>
 <net name="GND" class="0">
@@ -5635,14 +5640,8 @@ DS pag. 5</text>
 <junction x="162.56" y="160.02"/>
 <pinref part="Q3" gate="G$1" pin="S1"/>
 <pinref part="Q4" gate="G$1" pin="D1"/>
+<wire x1="218.44" y1="177.8" x2="251.46" y2="177.8" width="0.1524" layer="91"/>
 <pinref part="R10" gate="G$1" pin="P$1"/>
-<wire x1="251.46" y1="177.8" x2="248.92" y2="177.8" width="0.1524" layer="91"/>
-<wire x1="248.92" y1="177.8" x2="248.92" y2="172.72" width="0.1524" layer="91"/>
-<wire x1="248.92" y1="172.72" x2="254" y2="172.72" width="0.1524" layer="91"/>
-<pinref part="U11" gate="_" pin="IN+@8"/>
-<wire x1="254" y1="172.72" x2="254" y2="170.18" width="0.1524" layer="91"/>
-<wire x1="218.44" y1="177.8" x2="248.92" y2="177.8" width="0.1524" layer="91"/>
-<junction x="248.92" y="177.8"/>
 </segment>
 </net>
 <net name="N$11" class="0">
@@ -6013,15 +6012,9 @@ DS pag. 5</text>
 </net>
 <net name="N$29" class="0">
 <segment>
-<pinref part="U10" gate="_" pin="IN-@1"/>
-<wire x1="259.08" y1="220.98" x2="259.08" y2="223.52" width="0.1524" layer="91"/>
-<wire x1="259.08" y1="223.52" x2="264.16" y2="223.52" width="0.1524" layer="91"/>
-<wire x1="264.16" y1="223.52" x2="264.16" y2="228.6" width="0.1524" layer="91"/>
-<pinref part="R9" gate="G$1" pin="P$2"/>
-<wire x1="264.16" y1="228.6" x2="261.62" y2="228.6" width="0.1524" layer="91"/>
-<wire x1="264.16" y1="228.6" x2="266.7" y2="228.6" width="0.1524" layer="91"/>
-<junction x="264.16" y="228.6"/>
+<wire x1="261.62" y1="228.6" x2="266.7" y2="228.6" width="0.1524" layer="91"/>
 <pinref part="J3" gate="-1" pin="S"/>
+<pinref part="R9" gate="G$1" pin="P$2"/>
 </segment>
 </net>
 <net name="ADC_I0_U_PF" class="0">
@@ -6074,15 +6067,9 @@ DS pag. 5</text>
 </net>
 <net name="N$28" class="0">
 <segment>
-<wire x1="259.08" y1="172.72" x2="264.16" y2="172.72" width="0.1524" layer="91"/>
-<pinref part="U11" gate="_" pin="IN-@1"/>
-<wire x1="259.08" y1="170.18" x2="259.08" y2="172.72" width="0.1524" layer="91"/>
-<pinref part="R10" gate="G$1" pin="P$2"/>
-<wire x1="269.24" y1="177.8" x2="264.16" y2="177.8" width="0.1524" layer="91"/>
+<wire x1="269.24" y1="177.8" x2="261.62" y2="177.8" width="0.1524" layer="91"/>
 <pinref part="J3" gate="-2" pin="S"/>
-<wire x1="264.16" y1="177.8" x2="261.62" y2="177.8" width="0.1524" layer="91"/>
-<wire x1="264.16" y1="172.72" x2="264.16" y2="177.8" width="0.1524" layer="91"/>
-<junction x="264.16" y="177.8"/>
+<pinref part="R10" gate="G$1" pin="P$2"/>
 </segment>
 </net>
 <net name="N$40" class="0">
@@ -6111,6 +6098,34 @@ DS pag. 5</text>
 <pinref part="R28" gate="G$1" pin="P$2"/>
 <pinref part="D1" gate="G$1" pin="A"/>
 <wire x1="152.4" y1="233.68" x2="154.94" y2="233.68" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$55" class="0">
+<segment>
+<pinref part="U11" gate="_" pin="IN-@1"/>
+<pinref part="R10" gate="G$1" pin="SENSE-"/>
+<wire x1="259.08" y1="170.18" x2="259.08" y2="175.26" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$56" class="0">
+<segment>
+<pinref part="U11" gate="_" pin="IN+@8"/>
+<pinref part="R10" gate="G$1" pin="SENSE+"/>
+<wire x1="254" y1="170.18" x2="254" y2="175.26" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$57" class="0">
+<segment>
+<pinref part="U10" gate="_" pin="IN-@1"/>
+<pinref part="R9" gate="G$1" pin="SENSE-"/>
+<wire x1="259.08" y1="226.06" x2="259.08" y2="220.98" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$58" class="0">
+<segment>
+<pinref part="U10" gate="_" pin="IN+@8"/>
+<pinref part="R9" gate="G$1" pin="SENSE+"/>
+<wire x1="254" y1="226.06" x2="254" y2="220.98" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
