@@ -7469,21 +7469,21 @@ MSOP&lt;br&gt;
 <wire x1="-154.94" y1="312.42" x2="-162.56" y2="312.42" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$71" class="0">
+<net name="ENC_A@J" class="0">
 <segment>
 <pinref part="J201" gate=".2" pin="S"/>
 <pinref part="R201" gate="G$1" pin="P$1"/>
 <wire x1="-228.6" y1="363.22" x2="-226.06" y2="363.22" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$72" class="0">
+<net name="ENC_B@J" class="0">
 <segment>
 <pinref part="J201" gate=".3" pin="S"/>
 <pinref part="R202" gate="G$1" pin="P$1"/>
 <wire x1="-228.6" y1="358.14" x2="-226.06" y2="358.14" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$73" class="0">
+<net name="ENC_N@J" class="0">
 <segment>
 <pinref part="J201" gate=".4" pin="S"/>
 <pinref part="R203" gate="G$1" pin="P$1"/>
@@ -7613,21 +7613,21 @@ MSOP&lt;br&gt;
 <wire x1="-162.56" y1="233.68" x2="-154.94" y2="233.68" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$76" class="0">
+<net name="ENC_2_A@J" class="0">
 <segment>
 <pinref part="J202" gate=".2" pin="S"/>
 <pinref part="R204" gate="G$1" pin="P$1"/>
 <wire x1="-228.6" y1="284.48" x2="-226.06" y2="284.48" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$77" class="0">
+<net name="ENC_2_B@J" class="0">
 <segment>
 <pinref part="J202" gate=".3" pin="S"/>
 <pinref part="R205" gate="G$1" pin="P$1"/>
 <wire x1="-228.6" y1="279.4" x2="-226.06" y2="279.4" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$78" class="0">
+<net name="ENC_2_N@J" class="0">
 <segment>
 <pinref part="J202" gate=".4" pin="S"/>
 <pinref part="R206" gate="G$1" pin="P$1"/>
@@ -7694,21 +7694,21 @@ MSOP&lt;br&gt;
 <wire x1="-154.94" y1="154.94" x2="-162.56" y2="154.94" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$82" class="0">
+<net name="HALL_WY@J" class="0">
 <segment>
 <pinref part="J203" gate=".2" pin="S"/>
 <pinref part="R207" gate="G$1" pin="P$1"/>
 <wire x1="-228.6" y1="205.74" x2="-226.06" y2="205.74" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$83" class="0">
+<net name="HALL_V@J" class="0">
 <segment>
 <pinref part="J203" gate=".3" pin="S"/>
 <pinref part="R208" gate="G$1" pin="P$1"/>
 <wire x1="-228.6" y1="200.66" x2="-226.06" y2="200.66" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$84" class="0">
+<net name="HALL_UX@J" class="0">
 <segment>
 <pinref part="J203" gate=".4" pin="S"/>
 <pinref part="R209" gate="G$1" pin="P$1"/>
@@ -7817,21 +7817,21 @@ MSOP&lt;br&gt;
 <wire x1="-162.56" y1="76.2" x2="-154.94" y2="76.2" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$88" class="0">
+<net name="REF_R@J" class="0">
 <segment>
 <pinref part="J204" gate=".2" pin="S"/>
 <pinref part="R210" gate="G$1" pin="P$1"/>
 <wire x1="-228.6" y1="127" x2="-226.06" y2="127" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$89" class="0">
+<net name="REF_H@J" class="0">
 <segment>
 <pinref part="J204" gate=".3" pin="S"/>
 <pinref part="R211" gate="G$1" pin="P$1"/>
 <wire x1="-228.6" y1="121.92" x2="-226.06" y2="121.92" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$90" class="0">
+<net name="REF_L@J" class="0">
 <segment>
 <pinref part="J204" gate=".4" pin="S"/>
 <pinref part="R212" gate="G$1" pin="P$1"/>
@@ -7921,21 +7921,21 @@ MSOP&lt;br&gt;
 <junction x="-86.36" y="27.94"/>
 </segment>
 </net>
-<net name="N$97" class="0">
+<net name="AENC_WY@J" class="0">
 <segment>
 <pinref part="J205" gate=".4" pin="S"/>
 <pinref part="R227" gate="G$1" pin="P$1"/>
 <wire x1="-101.6" y1="27.94" x2="-99.06" y2="27.94" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$98" class="0">
+<net name="AENC_VN@J" class="0">
 <segment>
 <pinref part="J205" gate=".3" pin="S"/>
 <pinref part="R218" gate="G$1" pin="P$1"/>
 <wire x1="-149.86" y1="35.56" x2="-147.32" y2="35.56" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$99" class="0">
+<net name="AENC_UX@J" class="0">
 <segment>
 <pinref part="J205" gate=".2" pin="S"/>
 <pinref part="R213" gate="G$1" pin="P$1"/>
@@ -10007,7 +10007,7 @@ DS pag. 5</text>
 <wire x1="162.56" y1="58.42" x2="93.98" y2="58.42" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$29" class="0">
+<net name="UX1@J401" class="0">
 <segment>
 <pinref part="R421" gate="G$1" pin="P$2"/>
 <pinref part="J401" gate=".1" pin="S"/>
@@ -10017,6 +10017,7 @@ DS pag. 5</text>
 <wire x1="203.2" y1="238.76" x2="205.74" y2="238.76" width="0.1524" layer="91"/>
 <wire x1="203.2" y1="233.68" x2="203.2" y2="236.22" width="0.1524" layer="91"/>
 <junction x="203.2" y="236.22"/>
+<label x="203.2" y="236.22" size="0.889" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="ADC_I0_U_PF" class="0">
@@ -10259,7 +10260,7 @@ DS pag. 5</text>
 <junction x="271.78" y="175.26"/>
 </segment>
 </net>
-<net name="N$1" class="0">
+<net name="WY1@J401" class="0">
 <segment>
 <pinref part="R422" gate="G$1" pin="P$2"/>
 <wire x1="203.2" y1="132.08" x2="203.2" y2="137.16" width="0.1524" layer="91"/>
@@ -10269,6 +10270,7 @@ DS pag. 5</text>
 <wire x1="205.74" y1="139.7" x2="203.2" y2="139.7" width="0.1524" layer="91"/>
 <wire x1="203.2" y1="139.7" x2="203.2" y2="137.16" width="0.1524" layer="91"/>
 <junction x="203.2" y="137.16"/>
+<label x="203.2" y="137.16" size="0.889" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 </nets>
@@ -10934,21 +10936,21 @@ DS pag. 5</text>
 <pinref part="U501" gate="G$1" pin="VBUS@8"/>
 </segment>
 </net>
-<net name="N$33" class="0">
+<net name="STEP@J" class="0">
 <segment>
 <pinref part="J506" gate=".2" pin="S"/>
 <pinref part="R509" gate="G$1" pin="P$1"/>
 <wire x1="256.54" y1="154.94" x2="259.08" y2="154.94" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$59" class="0">
+<net name="DIR@J" class="0">
 <segment>
 <pinref part="J506" gate=".1" pin="S"/>
 <pinref part="R508" gate="G$1" pin="P$1"/>
 <wire x1="256.54" y1="162.56" x2="259.08" y2="162.56" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$61" class="0">
+<net name="PWM_IN@J" class="0">
 <segment>
 <pinref part="J504" gate=".1" pin="S"/>
 <pinref part="R504" gate="G$1" pin="P$1"/>
