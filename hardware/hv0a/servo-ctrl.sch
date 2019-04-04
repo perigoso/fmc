@@ -5130,16 +5130,16 @@ MSOP&lt;br&gt;
 <part name="GND506" library="Utility &gt; Power Symbols" deviceset="GND" device=""/>
 <part name="D503" library="Circuit Protection &gt; ESD Suppressors \ TVS Diodes" deviceset="SP0503BAHT" device=""/>
 <part name="GND509" library="Utility &gt; Power Symbols" deviceset="GND" device=""/>
-<part name="R506" library="Passive Components &gt; Resistors &gt; Chip Resistors" deviceset="RESISTOR" device="0603" value="24k"/>
-<part name="R507" library="Passive Components &gt; Resistors &gt; Chip Resistors" deviceset="RESISTOR" device="0603" value="47k"/>
+<part name="R506" library="Passive Components &gt; Resistors &gt; Chip Resistors" deviceset="RESISTOR" device="0603" value="5k"/>
+<part name="R507" library="Passive Components &gt; Resistors &gt; Chip Resistors" deviceset="RESISTOR" device="0603" value="10k"/>
 <part name="GND512" library="Utility &gt; Power Symbols" deviceset="GND" device=""/>
 <part name="D505" library="Semiconductors &gt; Discrete Semiconductors &gt; Diodes &amp; Rectifiers &gt; Schottky Diodes &amp; Rectifiers" deviceset="BAT54S" device=""/>
 <part name="D506" library="Semiconductors &gt; Discrete Semiconductors &gt; Diodes &amp; Rectifiers &gt; Schottky Diodes &amp; Rectifiers" deviceset="BAT54S" device=""/>
 <part name="D504" library="Semiconductors &gt; Discrete Semiconductors &gt; Diodes &amp; Rectifiers &gt; Schottky Diodes &amp; Rectifiers" deviceset="BAT54S" device=""/>
 <part name="J506" library="Connectors &gt; JST &gt; SH" deviceset="SH-3" device=""/>
 <part name="J504" library="Connectors &gt; JST &gt; SH" deviceset="SH-2" device=""/>
-<part name="R508" library="Passive Components &gt; Resistors &gt; Chip Resistors" deviceset="RESISTOR" device="0603" value="24k"/>
-<part name="R509" library="Passive Components &gt; Resistors &gt; Chip Resistors" deviceset="RESISTOR" device="0603" value="24k"/>
+<part name="R508" library="Passive Components &gt; Resistors &gt; Chip Resistors" deviceset="RESISTOR" device="0603" value="100"/>
+<part name="R509" library="Passive Components &gt; Resistors &gt; Chip Resistors" deviceset="RESISTOR" device="0603" value="100"/>
 <part name="GND513" library="Utility &gt; Power Symbols" deviceset="GND" device=""/>
 <part name="GND514" library="Utility &gt; Power Symbols" deviceset="GND" device=""/>
 <part name="GND515" library="Utility &gt; Power Symbols" deviceset="GND" device=""/>
@@ -5148,10 +5148,10 @@ MSOP&lt;br&gt;
 <part name="SUPPLY507" library="Utility &gt; Power Symbols" deviceset="3.3V" device=""/>
 <part name="SUPPLY508" library="Utility &gt; Power Symbols" deviceset="3.3V" device=""/>
 <part name="GND507" library="Utility &gt; Power Symbols" deviceset="GND" device=""/>
-<part name="R504" library="Passive Components &gt; Resistors &gt; Chip Resistors" deviceset="RESISTOR" device="0603" value="24k"/>
-<part name="R505" library="Passive Components &gt; Resistors &gt; Chip Resistors" deviceset="RESISTOR" device="0603" value="24k"/>
-<part name="R510" library="Passive Components &gt; Resistors &gt; Chip Resistors" deviceset="RESISTOR" device="0603" value="24k"/>
-<part name="R511" library="Passive Components &gt; Resistors &gt; Chip Resistors" deviceset="RESISTOR" device="0603" value="24k"/>
+<part name="R504" library="Passive Components &gt; Resistors &gt; Chip Resistors" deviceset="RESISTOR" device="0603" value="100"/>
+<part name="R505" library="Passive Components &gt; Resistors &gt; Chip Resistors" deviceset="RESISTOR" device="0603" value="10k"/>
+<part name="R510" library="Passive Components &gt; Resistors &gt; Chip Resistors" deviceset="RESISTOR" device="0603" value="10k"/>
+<part name="R511" library="Passive Components &gt; Resistors &gt; Chip Resistors" deviceset="RESISTOR" device="0603" value="10k"/>
 <part name="GND508" library="Utility &gt; Power Symbols" deviceset="GND" device=""/>
 <part name="GND510" library="Utility &gt; Power Symbols" deviceset="GND" device=""/>
 <part name="SUPPLY506" library="Utility &gt; Power Symbols" deviceset="3.3V" device=""/>
