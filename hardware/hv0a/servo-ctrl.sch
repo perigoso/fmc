@@ -4742,7 +4742,7 @@ MSOP&lt;br&gt;
 <part name="C108" library="Passive Components &gt; Capacitors &gt; Multilayer Ceramic Capacitors MLCC" deviceset="MLCC" device="0603" value="100n"/>
 <part name="C112" library="Passive Components &gt; Capacitors &gt; Multilayer Ceramic Capacitors MLCC" deviceset="MLCC" device="0603" value="100n"/>
 <part name="C110" library="Passive Components &gt; Capacitors &gt; Multilayer Ceramic Capacitors MLCC" deviceset="MLCC" device="0603" value="100n"/>
-<part name="C111" library="Passive Components &gt; Capacitors &gt; Multilayer Ceramic Capacitors MLCC" deviceset="MLCC" device="0603" value="470n"/>
+<part name="C111" library="Passive Components &gt; Capacitors &gt; Multilayer Ceramic Capacitors MLCC" deviceset="MLCC" device="0603" value="4u7"/>
 <part name="C113" library="Passive Components &gt; Capacitors &gt; Multilayer Ceramic Capacitors MLCC" deviceset="MLCC" device="0603" value="4u7"/>
 <part name="C109" library="Passive Components &gt; Capacitors &gt; Multilayer Ceramic Capacitors MLCC" deviceset="MLCC" device="0603" value="100n"/>
 <part name="SUPPLY110" library="Utility &gt; Power Symbols" deviceset="5V" device=""/>
@@ -4955,8 +4955,8 @@ MSOP&lt;br&gt;
 <part name="D101" library="Semiconductors &gt; Discrete Semiconductors &gt; Diodes &amp; Rectifiers &gt; Schottky Diodes &amp; Rectifiers" deviceset="BAT54S" device=""/>
 <part name="GND434" library="Utility &gt; Power Symbols" deviceset="GND" device=""/>
 <part name="SUPPLY430" library="Utility &gt; Power Symbols" deviceset="5V" device=""/>
-<part name="R428" library="Passive Components &gt; Resistors &gt; Chip Resistors" deviceset="RESISTOR" device="0603" value="1k13"/>
-<part name="R430" library="Passive Components &gt; Resistors &gt; Chip Resistors" deviceset="RESISTOR" device="0603" value="10k"/>
+<part name="R428" library="Passive Components &gt; Resistors &gt; Chip Resistors" deviceset="RESISTOR" device="0603" value="1k2"/>
+<part name="R430" library="Passive Components &gt; Resistors &gt; Chip Resistors" deviceset="RESISTOR" device="0603" value="1k2"/>
 <part name="GND442" library="Utility &gt; Power Symbols" deviceset="GND" device=""/>
 <part name="SUPPLY431" library="Utility &gt; Power Symbols" deviceset="5V" device=""/>
 <part name="GND436" library="Utility &gt; Power Symbols" deviceset="GND" device=""/>
@@ -8459,7 +8459,7 @@ DS pag. 5</text>
 <wire x1="281.94" y1="193.04" x2="281.94" y2="147.32" width="0.645159375" layer="97" style="longdash"/>
 <wire x1="281.94" y1="147.32" x2="200.66" y2="147.32" width="0.645159375" layer="97" style="longdash"/>
 <wire x1="200.66" y1="147.32" x2="200.66" y2="193.04" width="0.645159375" layer="97" style="longdash"/>
-<text x="210.82" y="53.34" size="1.778" layer="97" rot="R90">1.24v at 125ºc</text>
+<text x="208.28" y="50.8" size="1.778" layer="97" rot="R90">1.24v at 125ºc @ R428 = 1k13</text>
 </plain>
 <instances>
 <instance part="FRAME401" gate="G$1" x="0" y="0" smashed="yes"/>
