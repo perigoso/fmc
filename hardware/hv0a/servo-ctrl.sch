@@ -1952,7 +1952,7 @@ temperature. Capacitance change is limited to ±15% from
 <wire x1="-12.7" y1="2.54" x2="-12.7" y2="-5.08" width="0.127" layer="21"/>
 <wire x1="-12.7" y1="-5.08" x2="-12.7" y2="-7.62" width="0.127" layer="21"/>
 <wire x1="-12.7" y1="-7.62" x2="-12.7" y2="-7.9" width="0.127" layer="21"/>
-<text x="-12.7" y="5.08" size="0.8" layer="21" font="vector" ratio="15">&gt;NAME</text>
+<text x="-12.7" y="5.08" size="0.8" layer="25" font="vector" ratio="15">&gt;NAME</text>
 <pad name="3" x="3.175" y="0" drill="1.5" diameter="3" thermals="no"/>
 <pad name="4" x="9.525" y="0" drill="1.5" diameter="3" thermals="no"/>
 <wire x1="-12.7" y1="4.6" x2="12.7" y2="4.6" width="0.127" layer="21"/>
@@ -1996,7 +1996,7 @@ temperature. Capacitance change is limited to ±15% from
 <wire x1="-6.35" y1="-5.08" x2="6.35" y2="-5.08" width="0.127" layer="21"/>
 <wire x1="-6.35" y1="2.54" x2="6.35" y2="2.54" width="0.127" layer="21"/>
 <wire x1="-6.35" y1="-7.62" x2="6.35" y2="-7.62" width="0.127" layer="21"/>
-<text x="-6.35" y="5.08" size="0.8" layer="21" font="vector" ratio="15">&gt;NAME</text>
+<text x="-6.35" y="5.08" size="0.8" layer="25" font="vector" ratio="15">&gt;NAME</text>
 </package>
 </packages>
 <symbols>
