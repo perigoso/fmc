@@ -52,7 +52,7 @@ int main(void)
     printf("Product String: %s\n\r", ubStr);
     memset(ubStr, 0x00, 63);
     cp2130_get_serial(spi, ubStr);
-    printf("Serial: %s", ubStr);
+    printf("Serial: %s\n\r", ubStr);
 
     uint8_t ubPinCfg[20];
     cp2130_get_pin_cfg(spi, ubPinCfg);
@@ -62,16 +62,16 @@ int main(void)
     }
 
     cp2130_set_gpio_mode_level(spi, CP2130_GPIO0, CP2130_GPIO_OUT_PP, CP2130_GPIO_HIGH);
-    cp2130_set_gpio_mode_level(spi, CP2130_GPIO5, CP2130_GPIO_OUT_PP, CP2130_GPIO_LOW);
-    cp2130_set_gpio_mode_level(spi, CP2130_GPIO7, CP2130_GPIO_OUT_PP, CP2130_GPIO_LOW);
+    //cp2130_set_gpio_mode_level(spi, CP2130_GPIO5, CP2130_GPIO_OUT_PP, CP2130_GPIO_LOW);
+    //cp2130_set_gpio_mode_level(spi, CP2130_GPIO7, CP2130_GPIO_OUT_PP, CP2130_GPIO_LOW);
 
-    cp2130_set_gpio_values(spi, 0x00, CP2130_GPIO7_MSK);
+    //cp2130_set_gpio_values(spi, 0x00, CP2130_GPIO7_MSK);
 
     cp2130_set_event_counter(spi, CP2130_EVNT_CNT_FALLING_EDG, 0);
 
     cp2130_set_clockdiv(spi, 3); // 24 MHz / 3 = 8MHz
 
-    cp2130_set_spi_word(spi, CP2130_SPI_CH0, CP2130_SPI_WRD_CS_MODE_PP | CP2130_SPI_WRD_CLK_3M);
+    cp2130_set_spi_word(spi, CP2130_SPI_CH0, CP2130_SPI_WRD_MODE3 | CP2130_SPI_WRD_CS_MODE_PP | CP2130_SPI_WRD_CLK_750K);
 
     cp2130_set_gpio_cs(spi, CP2130_CS_CH0, CP2130_CS_MD_EN_DIS_OTHERS);
 
@@ -82,6 +82,21 @@ int main(void)
     cp2130_get_event_counter(spi, &ubEvntMd, &ubCount);
     printf("Event Counter: %d\n\r", ubCount);
 
+    tmc4671_init(spi);
+
+    printf("Chip info:\n\r");
+
+    tmc4671_write(TMC4671_ADDR_CHIPINFO_ADDR, TMC4671_CHIPINFO_SI_TYPE);
+    uint32_t ulSiType = tmc4671_read(TMC4671_ADDR_CHIPINFO_DATA);
+    printf("SI Type: %c%c%c%c\n\r", (ulSiType >> 24) & 0xFF, (ulSiType >> 16) & 0xFF, (ulSiType >> 8) & 0xFF, ulSiType & 0xFF);
+
+    tmc4671_write(TMC4671_ADDR_CHIPINFO_ADDR, TMC4671_CHIPINFO_SI_VERSION);
+    uint32_t ulVersion = tmc4671_read(TMC4671_ADDR_CHIPINFO_DATA);
+    printf("SI Version: %hu.%hu\n\r", (ulVersion >> 16) & 0xFF, ulVersion & 0xFF);
+
+    printf("PWM max cnt: %hu\n\r", tmc4671_read(TMC4671_ADDR_PWM_MAXCNT) & 0xFFFF);
+
+/*
     printf("Transfering 100 Bytes...\n\r");
     uint8_t ubBuf[256];
     for(uint8_t ubCount = 0; ubCount < 100; ubCount++)
@@ -118,7 +133,7 @@ int main(void)
     cp2130_spi_transfer(spi, ubBuf, 3);
 
     printf("\n\rGot 0x%02X from mcp2515\n\r", ubBuf[2]);
-
+*/
     cp2130_free(spi);
 
 	if(ctx)

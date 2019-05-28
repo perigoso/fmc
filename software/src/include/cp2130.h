@@ -159,10 +159,14 @@
 #define CP2130_ABORT_READRTR    0x01
 
 // SPI word
-#define CP2130_SPI_WRD_CLK_LEAD             0x00
-#define CP2130_SPI_WRD_CLK_TRAIL            0x20
-#define CP2130_SPI_WRD_CLK_POL_IDLE_LOW     0x00
-#define CP2130_SPI_WRD_CLK_POL_IDLE_HIGH    0x10
+#define CP2130_SPI_WRD_MODE0                (CP2130_SPI_WRD_CPOL0 | CP2130_SPI_WRD_CPHA0)
+#define CP2130_SPI_WRD_MODE1                (CP2130_SPI_WRD_CPOL0 | CP2130_SPI_WRD_CPHA1)
+#define CP2130_SPI_WRD_MODE2                (CP2130_SPI_WRD_CPOL1 | CP2130_SPI_WRD_CPHA0)
+#define CP2130_SPI_WRD_MODE3                (CP2130_SPI_WRD_CPOL1 | CP2130_SPI_WRD_CPHA1)
+#define CP2130_SPI_WRD_CPHA0                0x00
+#define CP2130_SPI_WRD_CPHA1                0x20
+#define CP2130_SPI_WRD_CPOL0                0x00
+#define CP2130_SPI_WRD_CPOL1                0x10
 #define CP2130_SPI_WRD_CS_MODE_OD           0x00
 #define CP2130_SPI_WRD_CS_MODE_PP           0x08
 #define CP2130_SPI_WRD_CLK_12M              0x00

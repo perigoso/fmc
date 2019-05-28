@@ -6,17 +6,8 @@
 extern "C" {
 #endif
 
-/**
- * @brief brief
- *
- * @param ctx libusb context pointer
- * @param usVid open device with this vid
- * @param usPid open device with this pid
- * @return cp2130_device_t* returns pointer to device handler on success, NULL on failure
- */
 cp2130_device_t *cp2130_init(libusb_context *ctx, uint16_t usVid, uint16_t usPid)
 {
-
     if(!ctx)
     {
         DBGPRINTLN_CTX("error: invalid libUSB context.");
