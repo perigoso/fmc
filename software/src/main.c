@@ -86,15 +86,27 @@ int main(void)
 
     printf("Chip info:\n\r");
 
-    tmc4671_write(TMC4671_ADDR_CHIPINFO_ADDR, TMC4671_CHIPINFO_SI_TYPE);
-    uint32_t ulSiType = tmc4671_read(TMC4671_ADDR_CHIPINFO_DATA);
+    tmc4671_write(TMC4671_CHIPINFO_ADDR, TMC4671_CHIPINFO_ADDR_SI_TYPE);
+    uint32_t ulSiType = tmc4671_read(TMC4671_CHIPINFO_DATA);
     printf("SI Type: %c%c%c%c\n\r", (ulSiType >> 24) & 0xFF, (ulSiType >> 16) & 0xFF, (ulSiType >> 8) & 0xFF, ulSiType & 0xFF);
 
-    tmc4671_write(TMC4671_ADDR_CHIPINFO_ADDR, TMC4671_CHIPINFO_SI_VERSION);
-    uint32_t ulVersion = tmc4671_read(TMC4671_ADDR_CHIPINFO_DATA);
+    tmc4671_write(TMC4671_CHIPINFO_ADDR, TMC4671_CHIPINFO_ADDR_SI_VERSION);
+    uint32_t ulVersion = tmc4671_read(TMC4671_CHIPINFO_DATA);
     printf("SI Version: %hu.%hu\n\r", (ulVersion >> 16) & 0xFF, ulVersion & 0xFF);
 
-    printf("PWM max cnt: %hu\n\r", tmc4671_read(TMC4671_ADDR_PWM_MAXCNT) & 0xFFFF);
+    printf("PWM freq: %huHz\n\r", tmc4671_get_PWM_freq());
+
+    tmc4671_set_pwm_polarity(0, 0);
+    tmc4671_set_pole_pairs(1);
+    tmc4671_enable_PWM();
+    tmc4671_set_dead_time(100, 100);
+    tmc4671_set_velocity_limit(4000);
+    tmc4671_set_accelaration_limit(2000);
+    tmc4671_update_phi_selection_and_initialize(TMC4671_PHI_E_OPEN_LOOP, 0);
+    tmc4671_switch_motion_mode(TMC4671_MOTION_MODE_UQ_UD_EXT);
+    tmc4671_set_target_velocity(1000);
+    tmc4671_write(TMC4671_UQ_UD_EXT, 6000 & TMC4671_UD_EXT_MASK);
+    tmc4671_enable_PWM();
 
 /*
     printf("Transfering 100 Bytes...\n\r");

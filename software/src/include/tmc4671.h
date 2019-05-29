@@ -301,6 +301,23 @@
 #define TMC4671_PWM_LOW_SIDE_ONLY                                       5
 #define TMC4671_PWM_HIGH_SIDE_ONLY                                      6
 #define TMC4671_PWM_CENTERED                                            7
+#define TMC4671_PHI_E_SELECTION_PHI_E_EXT                               1
+#define TMC4671_PHI_E_SELECTION_PHI_E_OPENLOOP                          2
+#define TMC4671_PHI_E_SELECTION_PHI_E_ABN                               3
+#define TMC4671_PHI_E_SELECTION_PHI_E_HAL                               5
+#define TMC4671_PHI_E_SELECTION_PHI_E_AENC                              6
+#define TMC4671_PHI_E_SELECTION_PHI_A_AENC                              7
+#define TMC4671_POSITION_PHI_E_SELECTION	                            0
+#define TMC4671_POSITION_PHI_E_EXT			                            1
+#define TMC4671_POSITION_PHI_E_OPENLOOP		                            2
+#define TMC4671_POSITION_PHI_E_ABN			                            3
+#define TMC4671_POSITION_PHI_E_HAL			                            5
+#define TMC4671_POSITION_PHI_E_AENC			                            6
+#define TMC4671_POSITION_PHI_A_AENC			                            7
+#define TMC4671_POSITION_PHI_M_ABN			                            9
+#define TMC4671_POSITION_PHI_M_ABN_2		                            10
+#define TMC4671_POSITION_PHI_M_AENC			                            11
+#define TMC4671_POSITION_PHI_M_HAL			                            12
 
 // Masks & Shifts
 #define TMC4671_SI_TYPE_MASK                                 0xFFFFFFFF // CHIPINFO_DATA //
@@ -491,8 +508,8 @@
 #define TMC4671_USE_ABN_AS_N_SHIFT                           3 // min.: 0, max.: 1, default: 0
 #define TMC4671_CLN_MASK                                     0x0100 // ABN_DECODER_MODE // Clear writes ABN_DECODER_COUNT_N into decoder count at Npulse.
 #define TMC4671_CLN_SHIFT                                    8 // min.: 0, max.: 1, default: 0
-#define TMC4671_DIRECTION_MASK                               0x1000 // ABN_DECODER_MODE // Decoder count direction.
-#define TMC4671_DIRECTION_SHIFT                              12 // min.: 0, max.: 1, default: 0
+#define TMC4671_ABN_DIRECTION_MASK                           0x1000 // ABN_DECODER_MODE // Decoder count direction.
+#define TMC4671_ABN_DIRECTION_SHIFT                          12 // min.: 0, max.: 1, default: 0
 #define TMC4671_ABN_DECODER_PPR_MASK                         0xFFFFFF // ABN_DECODER_PPR // Decoder pules per mechanical revolution.
 #define TMC4671_ABN_DECODER_PPR_SHIFT                        0 // min.: 0, max.: 16777215, default: 0
 #define TMC4671_ABN_DECODER_COUNT_MASK                       0xFFFFFF // ABN_DECODER_COUNT // Raw decoder count; the digital decoder engine counts modulo (decoder_ppr).
@@ -517,8 +534,8 @@
 #define TMC4671_USE_ABN_AS_N_SHIFT                           3 // min.: 0, max.: 1, default: 0
 #define TMC4671_CLN_MASK                                     0x0100 // ABN_2_DECODER_MODE // Clear writes ABN_2_DECODER_COUNT_N into decoder count at Npulse.
 #define TMC4671_CLN_SHIFT                                    8 // min.: 0, max.: 1, default: 0
-#define TMC4671_DIRECTION_MASK                               0x1000 // ABN_2_DECODER_MODE // Decoder count direction.
-#define TMC4671_DIRECTION_SHIFT                              12 // min.: 0, max.: 1, default: 0
+#define TMC4671_ABN_2_DIRECTION_MASK                         0x1000 // ABN_2_DECODER_MODE // Decoder count direction.
+#define TMC4671_ABN_2_DIRECTION_SHIFT                        12 // min.: 0, max.: 1, default: 0
 #define TMC4671_ABN_2_DECODER_PPR_MASK                       0xFFFFFF // ABN_2_DECODER_PPR // Decoder_2 pules per mechanical revolution. This 2nd ABN encoder interface is for positioning or velocity control but NOT for motor commutation.
 #define TMC4671_ABN_2_DECODER_PPR_SHIFT                      0 // min.: 1, max.: 16777215, default: 0
 #define TMC4671_ABN_2_DECODER_COUNT_MASK                     0xFFFFFF // ABN_2_DECODER_COUNT // Raw decoder_2 count; the digital decoder engine counts modulo (decoder_2_ppr).
@@ -529,12 +546,14 @@
 #define TMC4671_ABN_2_DECODER_PHI_M_OFFSET_SHIFT             0 // min.: -32768, max.: 32767, default: 0
 #define TMC4671_ABN_2_DECODER_PHI_M_MASK                     0xFFFF // ABN_2_DECODER_PHI_M // ABN_2_DECODER_PHI_M = ABN_2_DECODER_COUNT * 2^16 / ABN_2_DECODER_PPR + ABN_2_DECODER_PHI_M_OFFSET;
 #define TMC4671_ABN_2_DECODER_PHI_M_SHIFT                    0 // min.: -32768, max.: 32767, default: 0
-#define TMC4671_POLARITY_MASK                                0x01 // HALL_MODE // polarity
-#define TMC4671_POLARITY_SHIFT                               0 // min.: 0, max.: 1, default: 0
-#define TMC4671_INTERPOLATION_MASK                           0x0100 // HALL_MODE // interpolation
-#define TMC4671_INTERPOLATION_SHIFT                          8 // min.: 0, max.: 1, default: 0
-#define TMC4671_DIRECTION_MASK                               0x1000 // HALL_MODE // direction
-#define TMC4671_DIRECTION_SHIFT                              12 // min.: 0, max.: 1, default: 0
+#define TMC4671_HALL_MODE_MASK                           	 0xFFFF // HALL_MODE
+#define TMC4671_HALL_MODE_SHIFT                              0
+#define TMC4671_HALL_POLARITY_MASK                           0x01 // HALL_MODE // polarity
+#define TMC4671_HALL_POLARITY_SHIFT                          0 // min.: 0, max.: 1, default: 0
+#define TMC4671_HALL_INTERPOLATION_MASK                      0x0100 // HALL_MODE // interpolation
+#define TMC4671_HALL_INTERPOLATION_SHIFT                     8 // min.: 0, max.: 1, default: 0
+#define TMC4671_HALL_DIRECTION_MASK                          0x1000 // HALL_MODE // direction
+#define TMC4671_HALL_DIRECTION_SHIFT                         12 // min.: 0, max.: 1, default: 0
 #define TMC4671_HALL_BLANK_MASK                              0x0FFF0000 // HALL_MODE // tBLANK = 10ns * HALL_BLANK
 #define TMC4671_HALL_BLANK_SHIFT                             16 // min.: 0, max.: 4095, default: 0
 #define TMC4671_HALL_POSITION_000_MASK                       0xFFFF // HALL_POSITION_060_000 // int16_t hall sensor position at 0\xc2\xb0
@@ -1084,72 +1103,72 @@ void tmc4671_write(uint8_t ubAddr, uint32_t ulData);
 uint32_t tmc4671_read(uint8_t ubAddr);
 void tmc4671_modify(uint8_t ubAddr, uint32_t ulData, uint32_t ulMask);
 
-// do cyclic tasks
-void tmc4671_periodicJob(uint8_t motor, uint32_t actualSystick, uint8_t initMode, uint8_t *initState, uint16_t initWaitTime, uint16_t *actualInitWaitTime, uint16_t startVoltage);
-
-// initialization functions
-void tmc4671_startEncoderInitialization(uint8_t mode, uint8_t *initMode, uint8_t *initState);
-void tmc4671_updatePhiSelectionAndInitialize(uint8_t motor, uint8_t actualPhiESelection, uint8_t desiredPhiESelection, uint8_t initMode, uint8_t *initState);
-
 // === modes of operation ===
-void tmc4671_switchToMotionMode(uint8_t motor, uint8_t mode);
+void tmc4671_switch_motion_mode(uint32_t ubMode);
 
 // torque mode
-void tmc4671_setTargetTorque_raw(uint8_t motor, int32_t targetTorque);
-int32_t tmc4671_getTargetTorque_raw(uint8_t motor);
-int32_t tmc4671_getActualTorque_raw(uint8_t motor);
-int32_t tmc4671_getActualRampTorque_raw(uint8_t motor);
-
-void tmc4671_setTargetTorque_mA(uint8_t motor, uint16_t torqueMeasurementFactor, int32_t targetTorque);
-int32_t tmc4671_getTargetTorque_mA(uint8_t motor, uint16_t torqueMeasurementFactor);
-int32_t tmc4671_getActualTorque_mA(uint8_t motor, uint16_t torqueMeasurementFactor);
-int32_t tmc4671_getTargetTorqueFluxSum_mA(uint8_t motor, uint16_t torqueMeasurementFactor);
-int32_t tmc4671_getActualTorqueFluxSum_mA(uint8_t motor, uint16_t torqueMeasurementFactor);
-int32_t tmc4671_getActualRampTorque_mA(uint8_t motor, uint16_t torqueMeasurementFactor);
+void tmc4671_set_target_torque_raw(int32_t lTargetTorque);
+int32_t tmc4671_get_target_torque_raw();
+int32_t tmc4671_get_actual_torque_raw();
+void tmc4671_set_target_torque_mA(uint16_t usTorqueMeasurementFactor, int32_t lTargetTorque);
+int32_t tmc4671_get_target_torque_mA(uint16_t usTorqueMeasurementFactor);
+int32_t tmc4671_get_actual_torque_mA(uint16_t usTorqueMeasurementFactor);
+int32_t tmc4671_get_target_torque_flux_sum_mA(uint16_t usTorqueMeasurementFactor);
+int32_t tmc4671_get_actual_torque_flux_sum_mA(uint16_t usTorqueMeasurementFactor);
 
 // flux
-void tmc4671_setTargetFlux_raw(uint8_t motor, int32_t targetFlux);
-int32_t tmc4671_getTargetFlux_raw(uint8_t motor);
-int32_t tmc4671_getActualFlux_raw(uint8_t motor);
-
-void tmc4671_setTargetFlux_mA(uint8_t motor, uint16_t torqueMeasurementFactor, int32_t targetFlux);
-int32_t tmc4671_getTargetFlux_mA(uint8_t motor, uint16_t torqueMeasurementFactor);
-int32_t tmc4671_getActualFlux_mA(uint8_t motor, uint16_t torqueMeasurementFactor);
+void tmc4671_set_target_flux_raw(int32_t targetFlux);
+int32_t tmc4671_get_target_flux_raw();
+int32_t tmc4671_get_actual_flux_raw();
+void tmc4671_set_target_flux_mA(uint16_t usTorqueMeasurementFactor, int32_t lTargetFlux);
+int32_t tmc4671_get_target_flux_mA(uint16_t usTorqueMeasurementFactor);
+int32_t tmc4671_get_actual_flux_mA(uint16_t usTorqueMeasurementFactor);
 
 // torque/flux limit
-void tmc4671_setTorqueFluxLimit_mA(uint8_t motor, uint16_t torqueMeasurementFactor, int32_t max);
-int32_t tmc4671_getTorqueFluxLimit_mA(uint8_t motor, uint16_t torqueMeasurementFactor);
+void tmc4671_set_torque_flux_limit_mA(uint16_t usTorqueMeasurementFactor, int32_t lMax);
+int32_t tmc4671_get_torque_flux_limit_mA(uint16_t usTorqueMeasurementFactor);
 
 // velocity mode
-void tmc4671_setTargetVelocity(uint8_t motor, int32_t targetVelocity);
-int32_t tmc4671_getTargetVelocity(uint8_t motor);
-int32_t tmc4671_getActualVelocity(uint8_t motor);
-int32_t tmc4671_getActualRampVelocity(uint8_t motor);
+void tmc4671_set_target_velocity(int32_t lTargetVelocity);
+int32_t tmc4671_get_target_velocity();
+int32_t tmc4671_get_actual_velocity();
+void tmc4671_set_velocity_limit(uint32_t ulVelocityLimit);
+void tmc4671_set_accelaration_limit(uint32_t ulAccelarationLimit);
 
 // position mode
-void tmc4671_setAbsolutTargetPosition(uint8_t motor, int32_t targetPosition);
-void tmc4671_setRelativeTargetPosition(uint8_t motor, int32_t relativePosition);
-int32_t tmc4671_getTargetPosition(uint8_t motor);
-void tmc4671_setActualPosition(uint8_t motor, int32_t actualPosition);
-int32_t tmc4671_getActualPosition(uint8_t motor);
-int32_t tmc4671_getActualRampPosition(uint8_t motor);
+void tmc4671_set_absolute_target_position(int32_t lTargetPosition);
+void tmc4671_set_relative_target_position(int32_t lRelativePosition);
+int32_t tmc4671_get_target_position();
+void tmc4671_set_actual_position(int32_t lActualPosition);
+int32_t tmc4671_get_actual_position();
+
+// do cyclic tasks
+void tmc4671_task();
+
+// encoder initialization
+void tmc4671_start_encoder_initialization(uint8_t ubMode, uint32_t ulInitWaitTime, uint16_t usStartVoltage);
+void tmc4671_update_phi_selection_and_initialize(uint8_t ubDesiredPhiESelection, uint8_t ubInitMode);
 
 // pwm control
-void tmc4671_disablePWM(uint8_t motor);
+void tmc4671_disable_PWM();
+void tmc4671_enable_PWM();
+void tmc4671_disable_SVPWM();
+void tmc4671_enable_SVPWM();
+void tmc4671_set_PWM_freq(uint32_t ulFrequency);
+uint32_t tmc4671_get_PWM_freq();
+void tmc4671_set_pwm_polarity(uint8_t ubLowSideInverted, uint8_t ubHighSideInverted);
+void tmc4671_set_dead_time(uint8_t ubLowDeadTime, uint8_t ubHighDeadTime);
 
-uint8_t tmc4671_getPolePairs(uint8_t motor);
-void tmc4671_setPolePairs(uint8_t motor, uint8_t polePairs);
+uint8_t tmc4671_get_pole_pairs();
+void tmc4671_set_pole_pairs(uint8_t ubPolePairs);
 
-uint16_t tmc4671_getAdcI0Offset(uint8_t motor);
-void tmc4671_setAdcI0Offset(uint8_t motor, uint16_t offset);
+uint16_t tmc4671_get_adcI0_offset();
+void tmc4671_set_adcI0_offset(uint16_t usOffset);
+uint16_t tmc4671_get_adcI1_offset();
+void tmc4671_set_adcI1_offset(uint16_t usOffset);
 
-uint16_t tmc4671_getAdcI1Offset(uint8_t motor);
-void tmc4671_setAdcI1Offset(uint8_t motor, uint16_t offset);
-
-void tmc4671_setTorqueFluxPI(uint8_t motor, uint16_t pParameter, uint16_t iParameter);
-void tmc4671_setVelocityPI(uint8_t motor, uint16_t pParameter, uint16_t iParameter);
-void tmc4671_setPositionPI(uint8_t motor, uint16_t pParameter, uint16_t iParameter);
-
-int32_t tmc4671_readFieldWithDependency(uint8_t motor, uint8_t reg, uint8_t dependsReg, uint32_t dependsValue, uint32_t mask, uint8_t shift);
+void tmc4671_set_torque_flux_PI(uint16_t usPParameter, uint16_t usIParameter);
+void tmc4671_set_velocity_PI(uint16_t usPParameter, uint16_t usIParameter);
+void tmc4671_set_position_PI(uint16_t usPParameter, uint16_t usIParameter);
 
 #endif // __TMC4671_H
