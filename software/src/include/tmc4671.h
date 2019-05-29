@@ -295,6 +295,12 @@
 #define TMC4671_INTERIM_ADDR_STATUS_REG_1                               213
 #define TMC4671_INTERIM_ADDR_STATUS_PARAM_10                            214
 #define TMC4671_INTERIM_ADDR_STATUS_PARAM_32                            215
+#define TMC4671_PWM_OFF                                                 0
+#define TMC4671_PWM_OFF_LOW_SIDE_ON                                     1
+#define TMC4671_PWM_OFF_HIGH_SIDE_ON                                    2
+#define TMC4671_PWM_LOW_SIDE_ONLY                                       5
+#define TMC4671_PWM_HIGH_SIDE_ONLY                                      6
+#define TMC4671_PWM_CENTERED                                            7
 
 // Masks & Shifts
 #define TMC4671_SI_TYPE_MASK                                 0xFFFFFFFF // CHIPINFO_DATA //

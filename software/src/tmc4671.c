@@ -49,7 +49,7 @@ void tmc4671_modify(uint8_t ubAddr, uint32_t ulData, uint32_t ulMask)
 void tmc4671_switch_motion_mode(uint32_t ubMode)
 {
 	// switch motion mode
-    tmc4671_modify(TMC4671_MODE_RAMP_MODE_MOTION, ubMode << TMC4671_MODE_MOTION_SHIFT, TMC4671_MODE_MOTION_MASK);
+    tmc4671_modify(TMC4671_MODE_RAMP_MODE_MOTION, ubMode, TMC4671_MODE_MOTION_MASK);
 }
 
 void tmc4671_set_target_torque_raw(int32_t lTargetTorque)
@@ -128,18 +128,18 @@ void tmc4671_set_target_flux_raw(int32_t targetFlux)
 	tmc4671_modify(TMC4671_PID_TORQUE_FLUX_TARGET, targetFlux, TMC4671_PID_FLUX_TARGET_MASK);
 }
 
-int32_t tmc4671_getTargetFlux_raw(uint8_t motor)
+int32_t tmc4671_get_target_flux_raw()
 {
 	// remember last set index
-	uint32_t lastIndex = tmc4671_readInt(motor, TMC4671_INTERIM_ADDR);
+	uint32_t lLastIndex = tmc4671_read(TMC4671_INTERIM_ADDR);
 
 	// get value
-	tmc4671_writeInt(motor, TMC4671_INTERIM_ADDR, 1);
-	int32_t value = (int32_t) tmc4671_readInt(motor, TMC4671_INTERIM_DATA);
+	tmc4671_write(TMC4671_INTERIM_ADDR, TMC4671_INTERIM_ADDR_PIDIN_TARGET_FLUX);
+	int32_t lReturn = (int32_t)tmc4671_read(TMC4671_INTERIM_DATA);
 
 	// reset last set index
-	tmc4671_writeInt(motor, TMC4671_INTERIM_ADDR, lastIndex);
-	return value;
+	tmc4671_write(TMC4671_INTERIM_ADDR, lLastIndex);
+	return lReturn;
 }
 
 int32_t tmc4671_get_actual_flux_raw()
@@ -150,85 +150,71 @@ int32_t tmc4671_get_actual_flux_raw()
 void tmc4671_set_target_flux_mA(uint16_t usTorqueMeasurementFactor, int32_t lTargetFlux)
 {
 	// do not change the MOTION_MODE here! target flux can also be used during velocity and position modes
-	tmc4671_modify(TMC4671_PID_TORQUE_FLUX_TARGET, ((lTargetFlux * 256) / (int32_t)usTorqueMeasurementFactor),);
+	tmc4671_modify(TMC4671_PID_TORQUE_FLUX_TARGET, ((lTargetFlux * 256) / (int32_t)usTorqueMeasurementFactor), TMC4671_PID_FLUX_TARGET_MASK);
 }
 
-int32_t tmc4671_getTargetFlux_mA(uint8_t motor, uint16_t torqueMeasurementFactor)
+int32_t tmc4671_get_target_flux_mA(uint16_t usTorqueMeasurementFactor)
 {
-	return (tmc4671_getTargetFlux_raw(motor) * (int32_t) torqueMeasurementFactor) / 256;
+	return (tmc4671_get_target_flux_raw() * (int32_t)usTorqueMeasurementFactor) / 256;
 }
 
-int32_t tmc4671_getActualFlux_mA(uint8_t motor, uint16_t torqueMeasurementFactor)
+int32_t tmc4671_get_actual_flux_mA(uint16_t usTorqueMeasurementFactor)
 {
-	return (tmc4671_getActualFlux_raw(motor) * (int32_t) torqueMeasurementFactor) / 256;
+	return (tmc4671_get_actual_flux_raw() * (int32_t)usTorqueMeasurementFactor) / 256;
 }
 
-void tmc4671_setTorqueFluxLimit_mA(uint8_t motor, uint16_t torqueMeasurementFactor, int32_t max)
+void tmc4671_set_torque_flux_limit_mA(uint16_t usTorqueMeasurementFactor, int32_t lMax)
 {
-	tmc4671_writeRegister16BitValue(motor, TMC4671_PID_TORQUE_FLUX_LIMITS, BIT_0_TO_15, (max * 256) / (int32_t) torqueMeasurementFactor);
+	tmc4671_write(TMC4671_PID_TORQUE_FLUX_LIMITS, ((lMax * 256) / (int32_t)usTorqueMeasurementFactor) & TMC4671_PID_TORQUE_FLUX_LIMITS_MASK);
 }
 
-int32_t tmc4671_getTorqueFluxLimit_mA(uint8_t motor, uint16_t torqueMeasurementFactor)
+int32_t tmc4671_get_torque_flux_limit_mA(uint16_t usTorqueMeasurementFactor)
 {
-	return ((int32_t) tmc4671_readRegister16BitValue(motor, TMC4671_PID_TORQUE_FLUX_LIMITS, BIT_0_TO_15) * (int32_t) torqueMeasurementFactor) / 256;
+	return ((int32_t)(tmc4671_read(TMC4671_PID_TORQUE_FLUX_LIMITS) & TMC4671_PID_TORQUE_FLUX_LIMITS_MASK) * (int32_t)usTorqueMeasurementFactor) / 256;
 }
 
-void tmc4671_setTargetVelocity(uint8_t motor, int32_t targetVelocity)
+void tmc4671_set_target_velocity(int32_t lTargetVelocity)
 {
-	tmc4671_switchToMotionMode(motor, TMC4671_MOTION_MODE_VELOCITY);
-	tmc4671_writeInt(motor, TMC4671_PID_VELOCITY_TARGET, targetVelocity);
+	tmc4671_switch_motion_mode(TMC4671_MOTION_MODE_VELOCITY);
+	tmc4671_write(TMC4671_PID_VELOCITY_TARGET, lTargetVelocity);
 }
 
-int32_t tmc4671_getTargetVelocity(uint8_t motor)
+int32_t tmc4671_get_target_velocity()
 {
-	return (int32_t) tmc4671_readInt(motor, TMC4671_PID_VELOCITY_TARGET);
+	return (int32_t)tmc4671_read(TMC4671_PID_VELOCITY_TARGET);
 }
 
-int32_t tmc4671_getActualVelocity(uint8_t motor)
+int32_t tmc4671_get_actual_velocity()
 {
-	return (int32_t) tmc4671_readInt(motor, TMC4671_PID_VELOCITY_ACTUAL);
+	return (int32_t)tmc4671_read(TMC4671_PID_VELOCITY_ACTUAL);
 }
 
-int32_t tmc4671_getActualRampVelocity(uint8_t motor)
+void tmc4671_set_absolute_target_position(int32_t lTargetPosition)
 {
-	UNUSED(motor);
-	// no ramp implemented
-	return 0;
+	tmc4671_switch_motion_mode(TMC4671_MOTION_MODE_POSITION);
+	tmc4671_write(TMC4671_PID_POSITION_TARGET, lTargetPosition);
 }
 
-void tmc4671_setAbsolutTargetPosition(uint8_t motor, int32_t targetPosition)
+void tmc4671_set_relative_target_position(int32_t lRelativePosition)
 {
-	tmc4671_switchToMotionMode(motor, TMC4671_MOTION_MODE_POSITION);
-	tmc4671_writeInt(motor, TMC4671_PID_POSITION_TARGET, targetPosition);
-}
-
-void tmc4671_setRelativeTargetPosition(uint8_t motor, int32_t relativePosition)
-{
-	tmc4671_switchToMotionMode(motor, TMC4671_MOTION_MODE_POSITION);
+	tmc4671_switch_motion_mode(TMC4671_MOTION_MODE_POSITION);
 	// determine actual position and add relative position ticks
-	tmc4671_writeInt(motor, TMC4671_PID_POSITION_TARGET, (int32_t) tmc4671_readInt(motor, TMC4671_PID_POSITION_ACTUAL) + relativePosition);
+	tmc4671_write(TMC4671_PID_POSITION_TARGET, (int32_t)tmc4671_read(TMC4671_PID_POSITION_ACTUAL) + lRelativePosition);
 }
 
-int32_t tmc4671_getTargetPosition(uint8_t motor)
+int32_t tmc4671_get_target_position()
 {
-	return (int32_t) tmc4671_readInt(motor, TMC4671_PID_POSITION_TARGET);
+	return (int32_t)tmc4671_read(TMC4671_PID_POSITION_TARGET);
 }
 
-void tmc4671_setActualPosition(uint8_t motor, int32_t actualPosition)
+void tmc4671_set_actual_position(int32_t lActualPosition)
 {
-	tmc4671_writeInt(motor, TMC4671_PID_POSITION_ACTUAL, actualPosition);
+	tmc4671_write(TMC4671_PID_POSITION_ACTUAL, lActualPosition);
 }
 
-int32_t tmc4671_getActualPosition(uint8_t motor)
+int32_t tmc4671_get_actual_position()
 {
-	return (int32_t) tmc4671_readInt(motor, TMC4671_PID_POSITION_ACTUAL);
-}
-
-int32_t tmc4671_getActualRampPosition(uint8_t motor)
-{
-	UNUSED(motor);
-	// no ramp implemented
-	return 0;
+	return (int32_t)tmc4671_read(TMC4671_PID_POSITION_ACTUAL);
 }
 
 // encoder initialization
@@ -379,9 +365,9 @@ void tmc4671_checkEncderInitialization(uint8_t motor, uint32_t actualSystick, ui
 	}
 }
 
-void tmc4671_periodicJob(uint8_t motor, uint32_t actualSystick, uint8_t initMode, uint8_t *initState, uint16_t initWaitTime, uint16_t *actualInitWaitTime, uint16_t startVoltage)
+void tmc4671_task(uint32_t ulActualSystick, uint8_t ubInitMode, uint8_t *pubInitState, uint16_t usInitWaitTime, uint16_t *pusActualInitWaitTime, uint16_t usStartVoltage)
 {
-	tmc4671_checkEncderInitialization(motor, actualSystick, initMode, initState, initWaitTime, actualInitWaitTime, startVoltage);
+	tmc4671_checkEncderInitialization(NULL, ulActualSystick, ubInitMode, pubInitState, usInitWaitTime, pusActualInitWaitTime, usStartVoltage);
 }
 
 void tmc4671_startEncoderInitialization(uint8_t mode, uint8_t *initMode, uint8_t *initState)
@@ -410,7 +396,7 @@ void tmc4671_startEncoderInitialization(uint8_t mode, uint8_t *initMode, uint8_t
 
 void tmc4671_updatePhiSelectionAndInitialize(uint8_t motor, uint8_t actualPhiESelection, uint8_t desiredPhiESelection, uint8_t initMode, uint8_t *initState)
 {
-	if (actualPhiESelection != desiredPhiESelection)
+	if(actualPhiESelection != desiredPhiESelection)
 	{
 		tmc4671_writeInt(motor, TMC4671_PHI_E_SELECTION, desiredPhiESelection);
 
@@ -425,55 +411,55 @@ void tmc4671_updatePhiSelectionAndInitialize(uint8_t motor, uint8_t actualPhiESe
 
 // =====
 
-void tmc4671_disablePWM(uint8_t motor)
+void tmc4671_disable_PWM()
 {
-	tmc4671_writeInt(motor, TMC4671_PWM_SV_CHOP, 0);
+	tmc4671_modify(TMC4671_PWM_SV_CHOP, TMC4671_PWM_OFF, TMC4671_PWM_CHOP_MASK);
 }
 
-uint8_t tmc4671_getPolePairs(uint8_t motor)
+uint8_t tmc4671_get_pole_pairs()
 {
-	return FIELD_GET(tmc4671_readInt(motor, TMC4671_MOTOR_TYPE_N_POLE_PAIRS), TMC4671_N_POLE_PAIRS_MASK, TMC4671_N_POLE_PAIRS_SHIFT);
+	return tmc4671_read(TMC4671_MOTOR_TYPE_N_POLE_PAIRS) & TMC4671_N_POLE_PAIRS_MASK;
 }
 
-void tmc4671_setPolePairs(uint8_t motor, uint8_t polePairs)
+void tmc4671_set_pole_pairs(uint8_t ubPolePairs)
 {
-	TMC4671_FIELD_UPDATE(motor, TMC4671_MOTOR_TYPE_N_POLE_PAIRS, TMC4671_N_POLE_PAIRS_MASK, TMC4671_N_POLE_PAIRS_SHIFT, polePairs);
+	tmc4671_modify(TMC4671_MOTOR_TYPE_N_POLE_PAIRS, ubPolePairs, TMC4671_N_POLE_PAIRS_MASK);
 }
 
-uint16_t tmc4671_getAdcI0Offset(uint8_t motor)
+uint16_t tmc4671_get_adcI0_offset()
 {
-	return FIELD_GET(tmc4671_readInt(motor, TMC4671_ADC_I0_SCALE_OFFSET), TMC4671_ADC_I0_OFFSET_MASK, TMC4671_ADC_I0_OFFSET_SHIFT);
+	return tmc4671_read(TMC4671_ADC_I0_SCALE_OFFSET) & TMC4671_ADC_I0_OFFSET_MASK;
 }
 
-void tmc4671_setAdcI0Offset(uint8_t motor, uint16_t offset)
+void tmc4671_set_adcI0_offset(uint16_t usOffset)
 {
-	TMC4671_FIELD_UPDATE(motor, TMC4671_ADC_I0_SCALE_OFFSET, TMC4671_ADC_I0_OFFSET_MASK, TMC4671_ADC_I0_OFFSET_SHIFT, offset);
+	tmc4671_modify(TMC4671_ADC_I0_SCALE_OFFSET, usOffset, TMC4671_ADC_I0_OFFSET_MASK);
 }
 
-uint16_t tmc4671_getAdcI1Offset(uint8_t motor)
+uint16_t tmc4671_get_adcI1_offset()
 {
-	return FIELD_GET(tmc4671_readInt(motor, TMC4671_ADC_I1_SCALE_OFFSET), TMC4671_ADC_I1_OFFSET_MASK, TMC4671_ADC_I1_OFFSET_SHIFT);
+	return (tmc4671_read(TMC4671_ADC_I1_SCALE_OFFSET) & TMC4671_ADC_I1_OFFSET_MASK);
 }
 
-void tmc4671_setAdcI1Offset(uint8_t motor, uint16_t offset)
+void tmc4671_set_adcI1_offset(uint16_t usOffset)
 {
-	TMC4671_FIELD_UPDATE(motor, TMC4671_ADC_I1_SCALE_OFFSET, TMC4671_ADC_I1_OFFSET_MASK, TMC4671_ADC_I1_OFFSET_SHIFT, offset);
+	tmc4671_modify(TMC4671_ADC_I1_SCALE_OFFSET, usOffset, TMC4671_ADC_I1_OFFSET_MASK);
 }
 
-void tmc4671_setTorqueFluxPI(uint8_t motor, uint16_t pParameter, uint16_t iParameter)
+void tmc4671_set_torque_flux_PI(uint16_t usPParameter, uint16_t usIParameter)
 {
-	tmc4671_writeInt(motor, TMC4671_PID_FLUX_P_FLUX_I, ((uint32_t)pParameter << 16) | (uint32_t)iParameter);
-	tmc4671_writeInt(motor, TMC4671_PID_TORQUE_P_TORQUE_I, ((uint32_t)pParameter << 16) | (uint32_t)iParameter);
+	tmc4671_write(TMC4671_PID_FLUX_P_FLUX_I, (((uint32_t)usPParameter << TMC4671_PID_FLUX_P_SHIFT) & TMC4671_PID_FLUX_P_MASK) | ((uint32_t)usIParameter) & TMC4671_PID_FLUX_I_MASK);
+	tmc4671_write(TMC4671_PID_TORQUE_P_TORQUE_I, (((uint32_t)usPParameter << TMC4671_PID_TORQUE_P_SHIFT) & TMC4671_PID_TORQUE_P_MASK) | ((uint32_t)usIParameter) & TMC4671_PID_TORQUE_I_MASK);
 }
 
-void tmc4671_setVelocityPI(uint8_t motor, uint16_t pParameter, uint16_t iParameter)
+void tmc4671_set_velocity_PI(uint16_t usPParameter, uint16_t usIParameter)
 {
-	tmc4671_writeInt(motor, TMC4671_PID_VELOCITY_P_VELOCITY_I, ((uint32_t)pParameter << 16) | (uint32_t)iParameter);
+	tmc4671_write(TMC4671_PID_VELOCITY_P_VELOCITY_I, (((uint32_t)usPParameter << TMC4671_PID_VELOCITY_P_SHIFT) & TMC4671_PID_VELOCITY_P_MASK) | ((uint32_t)usIParameter) & TMC4671_PID_VELOCITY_I_MASK);
 }
 
-void tmc4671_setPositionPI(uint8_t motor, uint16_t pParameter, uint16_t iParameter)
+void tmc4671_set_position_PI(uint16_t usPParameter, uint16_t usIParameter)
 {
-	tmc4671_writeInt(motor, TMC4671_PID_POSITION_P_POSITION_I, ((uint32_t)pParameter << 16) | (uint32_t)iParameter);
+	tmc4671_write(TMC4671_PID_POSITION_P_POSITION_I, (((uint32_t)usPParameter << TMC4671_PID_POSITION_P_SHIFT) & TMC4671_PID_POSITION_P_MASK) | ((uint32_t)usIParameter) & TMC4671_PID_POSITION_I_MASK);
 }
 
 int32_t tmc4671_readFieldWithDependency(uint8_t motor, uint8_t reg, uint8_t dependsReg, uint32_t dependsValue, uint32_t mask, uint8_t shift)
