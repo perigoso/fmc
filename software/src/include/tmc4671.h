@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <time.h>
 #include "cp2130.h"
 
 // TMC4671 Frame
@@ -149,11 +150,12 @@
 #define TMC4671_STATUS_MASK                        0x7D
 
 // motion modes
-#define TMC4671_MOTION_MODE_STOPPED    0
-#define TMC4671_MOTION_MODE_TORQUE     1
-#define TMC4671_MOTION_MODE_VELOCITY   2
-#define TMC4671_MOTION_MODE_POSITION   3
-#define TMC4671_MOTION_MODE_UQ_UD_EXT  8
+#define TMC4671_MOTION_MODE_STOPPED     0
+#define TMC4671_MOTION_MODE_TORQUE      1
+#define TMC4671_MOTION_MODE_VELOCITY    2
+#define TMC4671_MOTION_MODE_POSITION    3
+#define TMC4671_MOTION_MODE_UQ_UD_EXT   8
+#define TMC4671_MOTION_MODE_MINI_MOVE   9
 
 // phi_e selections
 #define TMC4671_PHI_E_EXTERNAL   1
@@ -318,6 +320,10 @@
 #define TMC4671_POSITION_PHI_M_ABN_2		                            10
 #define TMC4671_POSITION_PHI_M_AENC			                            11
 #define TMC4671_POSITION_PHI_M_HAL			                            12
+#define TMC4671_NO_MOTOR                                                0
+#define TMC4671_SINGLE_PHASE_DC_MOTOR                                   1
+#define TMC4671_TWO_PHASE_STEP_MOTOR                                    2
+#define TMC4671_THREE_PHASE_BLDC_MOTOR                                  3
 
 // Masks & Shifts
 #define TMC4671_SI_TYPE_MASK                                 0xFFFFFFFF // CHIPINFO_DATA //
@@ -406,8 +412,8 @@
 #define TMC4671_ADC_I0_SHIFT                                 0 // min.: 0, max.: 7, default: 0
 #define TMC4671_ADC_I1_MASK                                  0xF0 // DS_ANALOG_INPUT_STAGE_CFG //
 #define TMC4671_ADC_I1_SHIFT                                 4 // min.: 0, max.: 7, default: 0
-#define TMC4671_ADC_VW_MASK                                  0x0F00 // DS_ANALOG_INPUT_STAGE_CFG //
-#define TMC4671_ADC_VW_SHIFT                                 8 // min.: 0, max.: 7, default: 0
+#define TMC4671_ADC_VM_MASK                                  0x0F00 // DS_ANALOG_INPUT_STAGE_CFG //
+#define TMC4671_ADC_VM_SHIFT                                 8 // min.: 0, max.: 7, default: 0
 #define TMC4671_ADC_AGPI_A_MASK                              0xF000 // DS_ANALOG_INPUT_STAGE_CFG //
 #define TMC4671_ADC_AGPI_A_SHIFT                             12 // min.: 0, max.: 7, default: 0
 #define TMC4671_ADC_AGPI_B_MASK                              0x0F0000 // DS_ANALOG_INPUT_STAGE_CFG //
@@ -1127,6 +1133,8 @@ int32_t tmc4671_get_actual_flux_mA(uint16_t usTorqueMeasurementFactor);
 // torque/flux limit
 void tmc4671_set_torque_flux_limit_mA(uint16_t usTorqueMeasurementFactor, int32_t lMax);
 int32_t tmc4671_get_torque_flux_limit_mA(uint16_t usTorqueMeasurementFactor);
+void tmc4671_set_torque_flux_limit(uint16_t usTorqueFluxLimit);
+void tmc4671_set_uq_ud_limit(uint16_t usUqUdLimit);
 
 // velocity mode
 void tmc4671_set_target_velocity(int32_t lTargetVelocity);
@@ -1146,8 +1154,8 @@ int32_t tmc4671_get_actual_position();
 void tmc4671_task();
 
 // encoder initialization
-void tmc4671_start_encoder_initialization(uint8_t ubMode, uint32_t ulInitWaitTime, uint16_t usStartVoltage);
-void tmc4671_update_phi_selection_and_initialize(uint8_t ubDesiredPhiESelection, uint8_t ubInitMode);
+void tmc4671_encoder_initialize(uint16_t usStartVoltage);
+void tmc4671_update_phi_selection_and_initialize(uint8_t ubDesiredPhiESelection);
 
 // pwm control
 void tmc4671_disable_PWM();
@@ -1161,6 +1169,8 @@ void tmc4671_set_dead_time(uint8_t ubLowDeadTime, uint8_t ubHighDeadTime);
 
 uint8_t tmc4671_get_pole_pairs();
 void tmc4671_set_pole_pairs(uint8_t ubPolePairs);
+uint8_t tmc4671_get_motor_type();
+void tmc4671_set_motor_type(uint8_t ubMotorType);
 
 uint16_t tmc4671_get_adcI0_offset();
 void tmc4671_set_adcI0_offset(uint16_t usOffset);
@@ -1170,5 +1180,10 @@ void tmc4671_set_adcI1_offset(uint16_t usOffset);
 void tmc4671_set_torque_flux_PI(uint16_t usPParameter, uint16_t usIParameter);
 void tmc4671_set_velocity_PI(uint16_t usPParameter, uint16_t usIParameter);
 void tmc4671_set_position_PI(uint16_t usPParameter, uint16_t usIParameter);
+
+uint32_t tmc4671_get_adc_raw(uint8_t ubAdcRawAddr);
+float tmc4671_get_vm_v();
+uint16_t tmc4671_get_I0_raw();
+uint16_t tmc4671_get_I1_raw();
 
 #endif // __TMC4671_H
