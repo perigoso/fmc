@@ -253,12 +253,14 @@ void tmc4671_encoder_initialize(uint16_t usStartVoltage)
 	// switch to velocity mode
 	tmc4671_write(TMC4671_MODE_RAMP_MODE_MOTION, TMC4671_MODE_RAMP_MODE_MOTION);
 	tmc4671_write(TMC4671_PID_VELOCITY_TARGET, 10);
+    sleep(1);
 
 	// and search the N-Channel to clear the actual position
 	tmc4671_write(TMC4671_ABN_DECODER_PHI_E_PHI_M, 0);
 	tmc4671_write(TMC4671_ABN_DECODER_MODE, 0);
 
 	tmc4671_write(TMC4671_PID_VELOCITY_TARGET, 20); // test
+    sleep(1);
 
 	// clear DECODER_COUNT_N and check
 	printf("clear DECODER_COUNT_N and check\n\r");
@@ -269,6 +271,7 @@ void tmc4671_encoder_initialize(uint16_t usStartVoltage)
 	}while(reply != 0);
 
 	tmc4671_write(TMC4671_PID_VELOCITY_TARGET, 30); // test
+    sleep(1);
 
 	// search N-channel
     printf("search N-channel\n\r");
@@ -278,11 +281,12 @@ void tmc4671_encoder_initialize(uint16_t usStartVoltage)
 		tmc4671_write(TMC4671_PID_POSITION_ACTUAL, 0);
 	}while(reply == 0);
 
-	tmc4671_write(TMC4671_PID_VELOCITY_TARGET, 40); // test
+	tmc4671_write(TMC4671_PID_VELOCITY_TARGET, 5); // test
+    sleep(1);
 
 	// drive to zero position using position mode
-	tmc4671_write(TMC4671_PID_POSITION_TARGET, 0);
-	tmc4671_write(TMC4671_MODE_RAMP_MODE_MOTION, TMC4671_MOTION_MODE_POSITION);
+	//tmc4671_write(TMC4671_PID_POSITION_TARGET, 0);
+	//tmc4671_write(TMC4671_MODE_RAMP_MODE_MOTION, TMC4671_MOTION_MODE_POSITION);
 }
 void tmc4671_update_phi_selection_and_initialize(uint8_t ubDesiredPhiESelection)
 {
@@ -293,7 +297,7 @@ void tmc4671_update_phi_selection_and_initialize(uint8_t ubDesiredPhiESelection)
 		switch(ubDesiredPhiESelection)
         {
         case TMC4671_PHI_E_SELECTION_PHI_E_ABN:
-            tmc4671_encoder_initialize(3000);
+            tmc4671_encoder_initialize(6000);
             break;
         }
 	}
