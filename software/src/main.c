@@ -117,7 +117,7 @@ int main(void)
 
     // Type of motor &  PWM configuration
     printf("Type of motor &  PWM configuration\n\r");
-    tmc4671_set_pole_pairs(7);
+    tmc4671_set_pole_pairs(1);
     tmc4671_set_motor_type(TMC4671_THREE_PHASE_BLDC_MOTOR);
     tmc4671_set_pwm_polarity(0, 0);
     tmc4671_set_PWM_freq(25000);
@@ -199,7 +199,7 @@ int main(void)
 
     // rotate right
     printf("rotate right\n\r");
-    //tmc4671_write(TMC4671_PID_TORQUE_FLUX_TARGET, 0x03E80000);
+    tmc4671_write(TMC4671_PID_TORQUE_FLUX_TARGET, 0x00010000);
     sleep(2);
 
     // rotate left
@@ -209,25 +209,25 @@ int main(void)
 
     // stop
     printf("stop\n\r");
-    tmc4671_write(TMC4671_PID_TORQUE_FLUX_TARGET, 0x00000000);
+    //tmc4671_write(TMC4671_PID_TORQUE_FLUX_TARGET, 0x00000000);
 
 /*
     tmc4671_switch_motion_mode(TMC4671_MOTION_MODE_UQ_UD_EXT);
-    tmc4671_write(TMC4671_UQ_UD_EXT, 6000 & TMC4671_UD_EXT_MASK);
-    tmc4671_write(TMC4671_OPENLOOP_VELOCITY_TARGET, 750);
-    tmc4671_write(TMC4671_OPENLOOP_ACCELERATION, 100);
+    tmc4671_write(TMC4671_UQ_UD_EXT, 3000 & TMC4671_UD_EXT_MASK);
+    tmc4671_write(TMC4671_OPENLOOP_VELOCITY_TARGET, 10);
+    tmc4671_write(TMC4671_OPENLOOP_ACCELERATION, 5);
 
     tmc4671_write(TMC4671_PHI_E_SELECTION, TMC4671_PHI_E_SELECTION_PHI_E_OPENLOOP);
 
-    tmc4671_update_phi_selection_and_initialize(TMC4671_PHI_E_SELECTION_PHI_E_ABN);
+    tmc4671_update_phi_selection_and_initialize(TMC4671_PHI_E_SELECTION_PHI_E_OPENLOOP);
 
     printf("\n\rTMC4671_ABN_DECODER_PHI_E_PHI_M_OFFSET %d\n\r", tmc4671_read(TMC4671_ABN_DECODER_PHI_E_PHI_M_OFFSET));
-*/
+
     printf("\n\ropen loop velocity actual %d\n\r", tmc4671_read(TMC4671_OPENLOOP_VELOCITY_ACTUAL));
     printf("\n\rPHI_E %d\n\r", tmc4671_read(TMC4671_PHI_E));
     printf("\n\rTMC4671_PID_FLUX_P_FLUX_I %d\n\r", tmc4671_read(TMC4671_PID_FLUX_P_FLUX_I));
     printf("\n\rTMC4671_PID_VELOCITY_TARGET %d\n\r", tmc4671_read(TMC4671_PID_VELOCITY_TARGET));
-
+*/
     FILE *fp;
 
     fp = fopen("./tests/currents.csv", "w");
@@ -240,14 +240,15 @@ int main(void)
     }
     else
     {
-        fprintf(fp, "IU:IV:IW:ENC\n\r");
+        fprintf(fp, "I0:I1:I2:PHI_E\n\r");
     }
 
     gxKeepRunning = 0;
 
     while(gxKeepRunning)
     {
-        fprintf(fp, "%d:%d:%d:%d\n\r", (int16_t)(tmc4671_read(TMC4671_ADC_IWY_IUX) & TMC4671_ADC_IUX_MASK), (int16_t)(tmc4671_read(TMC4671_ADC_IV) & TMC4671_ADC_IV_MASK), (int16_t)((tmc4671_read(TMC4671_ADC_IWY_IUX) & TMC4671_ADC_IWY_MASK) >> TMC4671_ADC_IWY_SHIFT), tmc4671_read(TMC4671_ABN_DECODER_COUNT) & TMC4671_ABN_DECODER_COUNT_MASK);
+        //fprintf(fp, "%d:%d:%d:%d\n\r", (int16_t)(tmc4671_read(TMC4671_ADC_IWY_IUX) & TMC4671_ADC_IUX_MASK), (int16_t)(tmc4671_read(TMC4671_ADC_IV) & TMC4671_ADC_IV_MASK), (int16_t)((tmc4671_read(TMC4671_ADC_IWY_IUX) & TMC4671_ADC_IWY_MASK) >> TMC4671_ADC_IWY_SHIFT), tmc4671_read(TMC4671_ABN_DECODER_COUNT) & TMC4671_ABN_DECODER_COUNT_MASK);
+        fprintf(fp, "%d:%d:0:%d\n\r", tmc4671_get_I0_raw(), tmc4671_get_I1_raw(), tmc4671_read(TMC4671_PHI_E));
     }
 
     printf("leaving...\n\r");
