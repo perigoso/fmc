@@ -26,7 +26,6 @@ int main(void)
 		printf("error: failed in libusb init\n\r");
         return EXIT_FAILURE;
 	}
-	libusb_set_debug(ctx, LIBUSB_LOG_LEVEL_WARNING);
 
     cp2130_device_t *spi = cp2130_init(ctx, CP2130_DEFAULT_VID, CP2130_DEFAULT_PID);
 
@@ -113,38 +112,40 @@ int main(void)
 
     printf("STATUS_FLAGS: %08X\n\r\n\r", tmc4671_read(TMC4671_STATUS_FLAGS));
 
+    printf("VM adc raw: %08X\n\r", tmc4671_get_adc_raw(TMC4671_ADC_RAW_ADDR_ADC_AGPI_A_RAW_ADC_VM_RAW));
     printf("Motor Voltage: %.2f V\n\r", tmc4671_get_vm_v());
 
     // Type of motor &  PWM configuration
     printf("Type of motor &  PWM configuration\n\r");
     tmc4671_set_pole_pairs(1);
-    tmc4671_set_motor_type(TMC4671_THREE_PHASE_BLDC_MOTOR);
+    tmc4671_set_motor_type(TMC4671_SINGLE_PHASE_DC_MOTOR);
     tmc4671_set_pwm_polarity(0, 0);
-    tmc4671_set_PWM_freq(25000);
+    tmc4671_set_PWM_freq(50000);
 	tmc4671_set_dead_time(20, 20);
     tmc4671_enable_PWM();
 
     // ADC configuration
     printf("ADC configuration\n\r");
-    tmc4671_write(TMC4671_dsADC_MDEC_B_MDEC_A, (0x014E << TMC4671_DSADC_MDEC_A_SHIFT) | (0x014E << TMC4671_DSADC_MDEC_B_SHIFT)); // Decimation configuration register.
+    tmc4671_write(TMC4671_dsADC_MDEC_B_MDEC_A, 0x00A500A5); // Decimation configuration register.
     tmc4671_modify(TMC4671_DS_ANALOG_INPUT_STAGE_CFG, (4 << TMC4671_ADC_VM_SHIFT), TMC4671_ADC_VM_MASK);
-	tmc4671_modify(TMC4671_dsADC_MCFG_B_MCFG_A, (1 << TMC4671_SEL_NCLK_MCLK_I_A_SHIFT) | (1 << TMC4671_SEL_NCLK_MCLK_I_B_SHIFT), TMC4671_SEL_NCLK_MCLK_I_A_MASK | TMC4671_SEL_NCLK_MCLK_I_B_MASK);
+	tmc4671_modify(TMC4671_dsADC_MCFG_B_MCFG_A, 0x00100010, TMC4671_SEL_NCLK_MCLK_I_A_MASK | TMC4671_SEL_NCLK_MCLK_I_B_MASK);
 	tmc4671_write(TMC4671_dsADC_MCLK_A, 0x20000000);
 	tmc4671_write(TMC4671_dsADC_MCLK_B, 0x00000000);
 
     //ADC scale & offset
+    //tmc4671_write(TMC4671_ADC_I_SELECT, (0 & TMC4671_ADC_I0_SELECT_MASK) | ((1 << TMC4671_ADC_I1_SHIFT) & TMC4671_ADC_I1_SELECT_MASK) | ((0 << TMC4671_ADC_I_UX_SELECT_SHIFT) & TMC4671_ADC_I_UX_SELECT_MASK) | ((2 << TMC4671_ADC_I_V_SELECT_SHIFT) & TMC4671_ADC_I_V_SELECT_MASK) | ((1 << TMC4671_ADC_I_WY_SELECT_SHIFT) & TMC4671_ADC_I_WY_SELECT_MASK));
+    tmc4671_write(TMC4671_ADC_I_SELECT, 0x1400030);
+
     printf("ADC scale & offset\n\r");
-    tmc4671_write(TMC4671_ADC_I0_SCALE_OFFSET, (33000 & TMC4671_ADC_I0_OFFSET_MASK) | (((uint16_t)(-256) << TMC4671_ADC_I0_SCALE_SHIFT) & TMC4671_ADC_I0_SCALE_MASK));
-    tmc4671_write(TMC4671_ADC_I1_SCALE_OFFSET, (33000 & TMC4671_ADC_I1_OFFSET_MASK) | (((uint16_t)(-256) << TMC4671_ADC_I1_SCALE_SHIFT) & TMC4671_ADC_I1_SCALE_MASK));
+    tmc4671_write(TMC4671_ADC_I0_SCALE_OFFSET, (tmc4671_get_I0_raw() & TMC4671_ADC_I0_OFFSET_MASK) | (((int16_t)(360) << TMC4671_ADC_I0_SCALE_SHIFT) & TMC4671_ADC_I0_SCALE_MASK));
+    tmc4671_write(TMC4671_ADC_I1_SCALE_OFFSET, (tmc4671_get_I1_raw() & TMC4671_ADC_I1_OFFSET_MASK) | (((int16_t)(360) << TMC4671_ADC_I1_SCALE_SHIFT) & TMC4671_ADC_I1_SCALE_MASK));
 
-    tmc4671_write(TMC4671_ADC_I_SELECT, (0 & TMC4671_ADC_I0_SELECT_MASK) | ((1 << TMC4671_ADC_I1_SHIFT) & TMC4671_ADC_I1_SELECT_MASK) | ((0 << TMC4671_ADC_I_UX_SELECT_SHIFT) & TMC4671_ADC_I_UX_SELECT_MASK) | ((2 << TMC4671_ADC_I_V_SELECT_SHIFT) & TMC4671_ADC_I_V_SELECT_MASK) | ((1 << TMC4671_ADC_I_WY_SELECT_SHIFT) & TMC4671_ADC_I_WY_SELECT_MASK));
-
-    printf("raw adc I0: 0x%04X\n\r", tmc4671_get_I0_raw());
+    printf("raw adc I0: %d\n\r", tmc4671_get_I0_raw());
     printf("raw adc I0(V): %.0f mV\n\r", (float)tmc4671_get_I0_raw() * 0.076295109f);
     printf("scaled adc IUX: %d\n\r", (int16_t)(tmc4671_read(TMC4671_ADC_IWY_IUX) & TMC4671_ADC_IUX_MASK));
 
 
-    printf("raw adc I1: 0x%04X\n\r", tmc4671_get_I1_raw());
+    printf("raw adc I1: %d\n\r", tmc4671_get_I1_raw());
     printf("raw adc I1(V): %.0f mV\n\r", (float)tmc4671_get_I1_raw() * 0.076295109f);
     printf("scaled adc IWY: %d\n\r", (int16_t)((tmc4671_read(TMC4671_ADC_IWY_IUX) & TMC4671_ADC_IWY_MASK) >> TMC4671_ADC_IWY_SHIFT));
 
@@ -153,16 +154,16 @@ int main(void)
 	// Encoder configuration
     printf("Encoder configuration\n\r");
 	tmc4671_write(TMC4671_ABN_DECODER_MODE, 0x00000000); // Control bits how to handle ABN decoder signals.
-	tmc4671_write(TMC4671_ABN_DECODER_PPR, 8192);
+	tmc4671_write(TMC4671_ABN_DECODER_PPR, 1024);
 	tmc4671_write(TMC4671_ABN_DECODER_COUNT, 0x00000000);
 	tmc4671_write(TMC4671_ABN_DECODER_PHI_E_PHI_M_OFFSET, 0x00000000);
 
     // set limits
     printf("set limits\n\r");
-    tmc4671_set_uq_ud_limit(10000); // 23767
-    tmc4671_set_torque_flux_limit(1000);
-    tmc4671_set_accelaration_limit(500);
-    tmc4671_set_velocity_limit(1000);
+    tmc4671_set_uq_ud_limit(23767); // 23767
+    tmc4671_set_torque_flux_limit(10000);
+    tmc4671_set_accelaration_limit(5000);
+    tmc4671_set_velocity_limit(10000);
 
     // selections
     printf("selections\n\r");
@@ -171,44 +172,43 @@ int main(void)
 
     // set PI parameter
     printf("set PI parameter\n\r");
-    tmc4671_set_torque_flux_PI(256, 256);  // P and I parameter for the flux regulator and for the torque regulator.
-    tmc4671_set_velocity_PI(256, 256);    // P and I parameter for the velocity regulator.
-    tmc4671_set_position_PI(256, 256);     // P parameter for the position regulator.
+    tmc4671_set_torque_flux_PI(1000, 0);  // P and I parameter for the flux regulator and for the torque regulator.
+    tmc4671_set_velocity_PI(1000, 0);    // P and I parameter for the velocity regulator.
+    tmc4671_set_position_PI(1000, 0);     // P parameter for the position regulator.
 
     // init encoder
     printf("init encoder\n\r");
     tmc4671_switch_motion_mode(TMC4671_MOTION_MODE_UQ_UD_EXT);
     tmc4671_write(TMC4671_ABN_DECODER_PHI_E_PHI_M_OFFSET, 0x00000000);
-    tmc4671_write(TMC4671_PHI_E_SELECTION, TMC4671_PHI_E_EXTERNAL);
+    tmc4671_write(TMC4671_PHI_E_SELECTION, TMC4671_PHI_E_EXT);
     tmc4671_write(TMC4671_PHI_E_EXT, 0x00000000);
-    tmc4671_write(TMC4671_UQ_UD_EXT, 5000);
-    sleep(1);
+    tmc4671_write(TMC4671_UQ_UD_EXT, 32767);
+    //sleep(5);
 
     // clear abn decoder count
-    printf("clear abn decoder count\n\r");
-    tmc4671_write(TMC4671_ABN_DECODER_COUNT, 0x00000000);
+    //printf("clear abn decoder count\n\r");
+    //tmc4671_write(TMC4671_ABN_DECODER_COUNT, 0x00000000);
 
     // feedback selection
-    printf("feedback selection\n\r");
-    tmc4671_write(TMC4671_PHI_E_SELECTION, TMC4671_PHI_E_SELECTION_PHI_E_ABN);
-    tmc4671_write(TMC4671_VELOCITY_SELECTION, TMC4671_VELOCITY_PHI_M_ABN);
+    //printf("feedback selection\n\r");
+    //tmc4671_write(TMC4671_PHI_E_SELECTION, TMC4671_PHI_E_SELECTION_PHI_E_ABN);
+    //tmc4671_write(TMC4671_VELOCITY_SELECTION, TMC4671_VELOCITY_PHI_M_ABN);
 
     // switch to torque mode
-    printf("switch to torque mode\n\r");
-    tmc4671_switch_motion_mode(TMC4671_MOTION_MODE_TORQUE);
+    //printf("switch to torque mode\n\r");
+    //tmc4671_switch_motion_mode(TMC4671_MOTION_MODE_UQ_UD_EXT);
 
     // rotate right
-    printf("rotate right\n\r");
-    tmc4671_write(TMC4671_PID_TORQUE_FLUX_TARGET, 0x00010000);
-    sleep(2);
+    //printf("rotate right\n\r");tmc4671_write(TMC4671_UQ_UD_EXT, 4294967295);
+    //sleep(2);
 
     // rotate left
-    printf("rotate left\n\r");
+    //printf("rotate left\n\r");
     //tmc4671_write(TMC4671_PID_TORQUE_FLUX_TARGET, 0xFC180000);
-    sleep(2);
+    //sleep(2);
 
     // stop
-    printf("stop\n\r");
+    //printf("stop\n\r");
     //tmc4671_write(TMC4671_PID_TORQUE_FLUX_TARGET, 0x00000000);
 
 /*
@@ -243,12 +243,25 @@ int main(void)
         fprintf(fp, "I0:I1:I2:PHI_E\n\r");
     }
 
-    gxKeepRunning = 0;
+    gxKeepRunning = 1;
 
     while(gxKeepRunning)
     {
+        printf("/----------------------------------/\n\r");
+        printf("raw adc I0: %d\n\r", tmc4671_get_I0_raw());
+        printf("raw adc I0(V): %.0f mV\n\r", (float)tmc4671_get_I0_raw() * 0.076295109f);
+        printf("raw adc I1: %d\n\r", tmc4671_get_I1_raw());
+        printf("raw adc I1(V): %.0f mV\n\r", (float)tmc4671_get_I1_raw() * 0.076295109f);
+        printf("scaled adc IUX: %d mA\n\r", (int16_t)(tmc4671_read(TMC4671_ADC_IWY_IUX) & TMC4671_ADC_IUX_MASK));
+        printf("scaled adc IV: %d mA\n\r",  (int16_t)(tmc4671_read(TMC4671_ADC_IV) & TMC4671_ADC_IV_MASK));
+        printf("scaled adc IWY: %d mA\n\r",  (int16_t)((tmc4671_read(TMC4671_ADC_IWY_IUX) & TMC4671_ADC_IWY_MASK) >> TMC4671_ADC_IWY_SHIFT));
+
+        printf("position: %d", tmc4671_read(TMC4671_ABN_DECODER_COUNT));
+
+        sleep(1);
+
         //fprintf(fp, "%d:%d:%d:%d\n\r", (int16_t)(tmc4671_read(TMC4671_ADC_IWY_IUX) & TMC4671_ADC_IUX_MASK), (int16_t)(tmc4671_read(TMC4671_ADC_IV) & TMC4671_ADC_IV_MASK), (int16_t)((tmc4671_read(TMC4671_ADC_IWY_IUX) & TMC4671_ADC_IWY_MASK) >> TMC4671_ADC_IWY_SHIFT), tmc4671_read(TMC4671_ABN_DECODER_COUNT) & TMC4671_ABN_DECODER_COUNT_MASK);
-        fprintf(fp, "%d:%d:0:%d\n\r", tmc4671_get_I0_raw(), tmc4671_get_I1_raw(), tmc4671_read(TMC4671_PHI_E));
+        //fprintf(fp, "%d:%d:0:%d\n\r", tmc4671_get_I0_raw(), tmc4671_get_I1_raw(), tmc4671_read(TMC4671_PHI_E));
     }
 
     printf("leaving...\n\r");

@@ -1,0 +1,12 @@
+{
+	"authors": [
+		"Rafael Silva"
+	],
+	"copyright": "Copyright © 2019, Rafael Silva",
+	"description": "A minimal D application.",
+	"license": "GPL-3.0",
+	"name": "fmc-tool",
+	"dependencies": {
+        "dlangui": "~master"
+    }
+}

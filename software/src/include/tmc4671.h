@@ -411,7 +411,7 @@
 #define TMC4671_ADC_I0_MASK                                  0x0F // DS_ANALOG_INPUT_STAGE_CFG //
 #define TMC4671_ADC_I0_SHIFT                                 0 // min.: 0, max.: 7, default: 0
 #define TMC4671_ADC_I1_MASK                                  0xF0 // DS_ANALOG_INPUT_STAGE_CFG //
-#define TMC4671_ADC_I1_SHIFT                                 4 // min.: 0, max.: 7, default: 0
+#define TMC4671_ADC_I1_SHIFT                                 8 // min.: 0, max.: 7, default: 0
 #define TMC4671_ADC_VM_MASK                                  0x0F00 // DS_ANALOG_INPUT_STAGE_CFG //
 #define TMC4671_ADC_VM_SHIFT                                 8 // min.: 0, max.: 7, default: 0
 #define TMC4671_ADC_AGPI_A_MASK                              0xF000 // DS_ANALOG_INPUT_STAGE_CFG //

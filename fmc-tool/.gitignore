@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/fmc-tool
+fmc-tool.so
+fmc-tool.dylib
+fmc-tool.dll
+fmc-tool.a
+fmc-tool.lib
+fmc-tool-test-*
+*.exe
+*.o
+*.obj
+*.lst
